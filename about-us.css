@@ -117,17 +117,17 @@
     }
 
     .stat-text{
-        font-size: .5rem;
+        font-size: .3rem;
     }
 
     .stat-item-1 span,
     .number{
-    font-size: .8rem;
+    font-size: .6rem;
     font-weight: bold;
     }
 
     .about-description {
-        font-size: 1rem;
+        font-size: .7rem;
         grid-column: 2/5;
         margin-bottom: 0;
     }
