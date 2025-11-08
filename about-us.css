@@ -37,33 +37,22 @@
     color: #666;
 }
 
-.stat-item-1{
-    display: flex;
-    border: .12rem solid #333;
-    padding: 5%;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
-
-.stat-item-2{
-    display: flex;
-    border: .12rem solid #333;
-    border-left: none;
-    padding: 5%;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-}
-
+.stat-item-1,
+.stat-item-2,
 .stat-item-3{
     display: flex;
     border: .12rem solid #333;
-    border-left: none;
     padding: 5%;
+    justify-content: center;
     text-align: center;
     align-items: center;
 }
+
+.stat-item-2,
+.stat-item-3{
+    border-left: none;
+}
+
 
 .stat-text {
     font-size: .95rem;
@@ -146,5 +135,12 @@
     .about-us h1{
         margin-bottom: 7px;
     }
+
+    .stat-item-1,
+.stat-item-2,
+.stat-item-3{
+    border: .6rem solid #333;
+}
+
     
 }

@@ -26,7 +26,7 @@ function smoothScrollTo(targetId) {
 // Обработчик для стрелки вниз
 document.getElementById('arrowDown').addEventListener('click', function(e) {
     e.preventDefault();
-    smoothScrollTo('features');
+    smoothScrollTo('main');
 });
 
 // Обработчик для стрелки назад (если нужно)
