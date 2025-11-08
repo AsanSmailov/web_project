@@ -124,7 +124,7 @@
         padding: 40px ;
     }
     .about-title {
-        font-size: 2rem;
+        font-size: 1.3rem;
     }
 
     .stat-text{
@@ -133,12 +133,12 @@
 
     .stat-item-1 span,
     .number{
-    font-size: .6rem;
+    font-size: .48rem;
     font-weight: bold;
     }
 
     .about-description {
-        font-size: .6rem;
+        font-size: .55rem;
         grid-column: 2/5;
         margin-bottom: 0;
     }
