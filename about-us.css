@@ -137,10 +137,15 @@
     }
 
     .stat-item-1,
-.stat-item-2,
-.stat-item-3{
-    border: .6rem solid #333;
-}
+    .stat-item-2,
+    .stat-item-3{
+        border: .03rem solid #333;
+    }
+
+    .stat-item-2,
+    .stat-item-3{
+        border-left: none;
+    }
 
     
 }
