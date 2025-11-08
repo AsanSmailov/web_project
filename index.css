@@ -1,0 +1,151 @@
+@import "footer.css";
+@import "about-us.css";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+.video-container {
+    position: relative;
+    min-height: 600px;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 0;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    max-width: 800px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    max-width: 600px;
+    line-height: 1.6;
+}
+
+.arrow{
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 48px;
+    height: 102px;
+    -o-object-fit: contain;
+    object-fit: contain;
+    -o-object-position: center;
+    object-position: center;
+    margin-left: -24px;
+    animation: animation-arrow 1s forwards infinite;
+}
+
+.arrow-back {
+    position: fixed;
+    left: 2.3%;
+    bottom: 0;
+    width: 48px;
+    height: 102px;
+    object-fit: contain;
+    object-position: center;
+    margin-left: -24px;
+    transform: scale(-1);
+    visibility: hidden; /* По умолчанию скрыта */
+
+}
+
+.arrow-back.active {
+    visibility: visible;/* Показываем только когда активна */
+}
+
+.arrow-back:hover{
+    animation: animation-arrow 1s forwards infinite;
+}
+
+
+@keyframes animation-arrow{
+    66% {
+    padding-top: 16px;
+    }
+
+    100%{
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        max-width: 800px;
+    }
+
+    p {
+        font-size: .7rem;
+        margin-bottom: 30px;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+    .arrow-back {
+        left: 5%;
+        width: 40px;
+        height: 85px;
+    }
+
+    .arrow{
+        width: 40px;
+        height: 85px;
+    }
+}

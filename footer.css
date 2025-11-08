@@ -1,0 +1,52 @@
+footer{
+    background-color: rgb(121, 117, 98);
+    
+}
+.footer-block{
+    position: relative;
+    margin: -2% 6% -2%;
+}
+
+.contact{
+    padding-top: 2%;
+}
+
+.contact h1{
+    font-size: 2rem;
+}
+
+.social-network-list {
+    height: 2rem;
+    padding: 0;
+    margin: 2% 0;
+    list-style: none;
+    display: flex; 
+    align-items: center; 
+}
+
+.social-network-list li {
+    height: 100%; 
+    margin-right: 1%;
+}
+
+.social-network-list img {
+    height: 100%; 
+    width: auto; 
+    object-fit: contain; 
+}
+
+.copyright{
+
+    padding: 1.5% 0;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.3); /* Разделительная линия */
+    margin-top: auto; /* Прижимает к низу */
+}
+
+
+@media (max-width: 768px) {
+    .footer-block{
+        position: relative;
+        margin: -2% 10% -2%;
+    }
+}
