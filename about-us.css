@@ -124,7 +124,7 @@
         padding: 40px ;
     }
     .about-title {
-        font-size: 1.3rem;
+        font-size: 1rem;
     }
 
     .stat-text{
@@ -138,7 +138,7 @@
     }
 
     .about-description {
-        font-size: .55rem;
+        font-size: .45rem;
         grid-column: 2/5;
         margin-bottom: 0;
     }
