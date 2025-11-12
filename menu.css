@@ -41,7 +41,7 @@
 
 /* Ховер-эффекты */
 .menu-toggle:hover .menu-toggle__line {
-    background-color: #007bff;
+    background-color: rgb(239, 219, 120);
 }
 
 .menu-toggle:focus {
@@ -73,7 +73,7 @@ body.stopScroll{
 .menu ul{
     position: fixed;
     top: 10%;
-    right: 10%;
+    left: 10%;
     font-size: 2rem;
     z-index: 9;
     color: white;
