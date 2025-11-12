@@ -85,3 +85,15 @@ body.stopScroll{
     text-decoration: none;
     color: white;
 }
+
+@media (max-width: 768px) {
+    .menu ul{
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    }
+
+    .menu-toggle:hover .menu-toggle__line {
+    background-color: rgb(176, 163, 96);
+}
+}
