@@ -7,7 +7,13 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+
     <section class="video-container" id="video">
+        <button class="menu-toggle" aria-label="Меню">
+            <span class="menu-toggle__line"></span>
+            <span class="menu-toggle__line"></span>
+            <span class="menu-toggle__line"></span>
+        </button>
         <video class="video-background" autoplay muted loop playsinline>
             <source src=assets/IMG_2278.MP4 type="video/mp4">
             Ваш браузер не поддерживает видео.
@@ -26,6 +32,18 @@
     <a href="" class="btn">
         <img class="arrow-back" src=assets/arrow-black.svg>
     </a>
+
+    <section class="menu">
+        <div class="overlay"></div>
+        <ul>
+            <li><a href="" id="menu-main">Главная</a></li>
+            <li><a href="" id="menu-about-us">О нас</a></li>
+            <li>Наша команда</li>
+            <li>Наша политика</li>
+            <li>Наши работы </li>
+            <li><a href="" id="menu-contacts">Контакты</a></li>
+        </ul>
+    </section>
 
     <section class="main-content" id="main">
         
@@ -66,7 +84,7 @@
     <script src="home.js"></script>
 </body>
 <footer>
-    <div class="footer-block">
+    <div class="footer-block" id="footer">
         <div class="contact">
             <h1>Контакты</h1>
             <ul class="social-network-list">

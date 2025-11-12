@@ -1,0 +1,87 @@
+.menu-toggle {
+    position: fixed;
+    right: 1%;
+    top: .5%;
+    z-index: 10;
+    width: 55px;
+    height: 47px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.menu-toggle__line {
+    width: 100%;
+    height: 3px;
+    background-color: rgb(176, 163, 96);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+/* Анимация в крестик при активном состоянии */
+.menu-toggle.active .menu-toggle__line:nth-child(1) {
+    transform: translateY(14px) rotate(50deg);
+}
+
+.menu-toggle.active .menu-toggle__line:nth-child(2) {
+    opacity: 0;
+    transform: scale(0);
+}
+
+.menu-toggle.active .menu-toggle__line:nth-child(3) {
+    transform: translateY(-14px) rotate(-50deg);
+}
+
+/* Ховер-эффекты */
+.menu-toggle:hover .menu-toggle__line {
+    background-color: #007bff;
+}
+
+.menu-toggle:focus {
+    outline: none;
+}
+
+.menu{
+    visibility: hidden;
+}
+
+.menu.show{
+    visibility: visible;
+}
+
+body.stopScroll{
+    overflow: hidden;
+}
+
+.menu .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2;
+}
+
+.menu ul{
+    position: fixed;
+    top: 10%;
+    right: 10%;
+    font-size: 2rem;
+    z-index: 9;
+    color: white;
+    list-style-type: none;
+    line-height: 2;
+}
+
+.menu ul a{
+    text-decoration: none;
+    color: white;
+}
