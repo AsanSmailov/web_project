@@ -43,7 +43,6 @@ const body = document.querySelector('body');
 menuToggle.addEventListener('click', function() {
   this.classList.toggle('active');
   
-  // Дополнительно: можно добавить логику для открытия/закрытия меню
   if (menu) {
     menu.classList.toggle('show');
     body.classList.toggle('stopScroll');
@@ -59,7 +58,7 @@ function closeMenu(){
 document.getElementById('menu-main').addEventListener('click', function(e) {
     closeMenu();
     e.preventDefault();
-    smoothScrollTo('video');
+    smoothScrollTo('home');
 });
 
 document.getElementById('menu-about-us').addEventListener('click', function(e) {
@@ -72,4 +71,11 @@ document.getElementById('menu-contacts').addEventListener('click', function(e) {
     closeMenu();
     e.preventDefault();
     smoothScrollTo('footer');
+});
+
+
+
+document.getElementById('menu-about-us-pc').addEventListener('click', function(e) {
+    e.preventDefault();
+    smoothScrollTo('main');
 });

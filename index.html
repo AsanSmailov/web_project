@@ -8,24 +8,33 @@
 </head>
 <body>
 
-    <section class="video-container" id="video">
+    <section class="home-container" id="home">
         <button class="menu-toggle" aria-label="Меню">
             <span class="menu-toggle__line"></span>
             <span class="menu-toggle__line"></span>
             <span class="menu-toggle__line"></span>
         </button>
-        <video class="video-background" autoplay muted loop playsinline>
+        <!-- <video class="video-background" autoplay muted loop playsinline>
             <source src=assets/IMG_2278.MP4 type="video/mp4">
             Ваш браузер не поддерживает видео.
         </video>
-        <div class="overlay"></div>
+        <div class="overlay"></div> -->
         <div class="content">
-            <div class="logo">LOGO</div>
-            <h1>Создаем красивые и функциональные пространства</h1>
-            <p>Профессиональный подход к реализации ваших идей. От концепции до воплощения.</p>
+            <button class="logo">
+                <img src="assets/logo.png" alt="logo">
+            </button>
             <a href="" class="btn">
                 <img src="assets/arrow.svg" alt="Scroll down" class="arrow" id="arrowDown">
             </a>
+        </div>
+
+        <div class="menu-pc">
+            <ul>
+                <li>АРХИТЕКТУРА</li>
+                <li>ДИЗАЙН</li>
+                <li><a href="" id="menu-about-us-pc">ПОЛИТИКА</a></li>
+                <li>ИИ</li>
+            </ul>
         </div>
     </section>
 
@@ -37,10 +46,10 @@
         <div class="overlay"></div>
         <ul>
             <li><a href="" id="menu-main">Главная</a></li>
-            <li><a href="" id="menu-about-us">О нас</a></li>
+            <li><a href="" id="menu-about-us">ПОЛИТИКА</a></li>
             <li>Наша команда</li>
             <li>Наша политика</li>
-            <li>Наши работы </li>
+            <li>ИИ</li>
             <li><a href="" id="menu-contacts">Контакты</a></li>
         </ul>
     </section>

@@ -1,4 +1,5 @@
 .menu-toggle {
+    visibility: hidden;
     position: fixed;
     right: 1%;
     top: .5%;
@@ -99,5 +100,9 @@ body.stopScroll{
 
     .menu-toggle:hover .menu-toggle__line {
     background-color: rgb(176, 163, 96);
-}
+    }
+
+    .menu-toggle{
+        visibility: visible;
+    }
 }
