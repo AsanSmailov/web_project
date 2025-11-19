@@ -1,12 +1,14 @@
 const arrow = document.querySelector('.arrow-back');
-const videoBlock = document.querySelector('#video');
+const topLine = document.querySelector('.top-line');
+const homeBlock = document.querySelector('#home');
 
 function checkVisibility() {
-    const videoRect = videoBlock.getBoundingClientRect();
+    const homeRect = homeBlock.getBoundingClientRect();
     
-    const isVideoOutOfView = videoRect.bottom <=  window.innerHeight * 0.35;
+    const isHomeOutOfView = homeRect.bottom <=  window.innerHeight * 0.35;
     
-    arrow.classList.toggle('active', isVideoOutOfView);
+    arrow.classList.toggle('active', isHomeOutOfView);
+    topLine.classList.toggle('active', isHomeOutOfView);
 }
 
 window.addEventListener('scroll', checkVisibility);
@@ -32,7 +34,7 @@ document.getElementById('arrowDown').addEventListener('click', function(e) {
 // Обработчик для стрелки назад (если нужно)
 document.querySelector('.arrow-back').addEventListener('click', function(e) {
     e.preventDefault();
-    smoothScrollTo('video');
+    smoothScrollTo('home');
 });
 
 

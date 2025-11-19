@@ -55,6 +55,21 @@ body {
     background-position: center;
 }
 
+.top-line{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8%;
+    transition: background-color 0.3s ease;
+    z-index: 1;
+}
+
+.top-line.active{
+    background-color: rgb(138, 131, 122);
+}
+
+
 .logo{
     position: fixed;
     top: 1.5%;
@@ -75,7 +90,7 @@ body {
 
 .menu-pc{
     position: fixed;
-    top: 1.5%;
+    top: 2.9%;
     left: 50%; 
     transform: translateX(-50%); 
     width: auto;
