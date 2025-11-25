@@ -1,6 +1,7 @@
 @import "footer.css";
 @import "about-us.css";
 @import "menu.css";
+@import "architecture.css";
 
 * {
     margin: 0;
@@ -66,7 +67,7 @@ body {
 }
 
 .top-line.active{
-    background-color: rgb(138, 131, 122);
+    background-color: rgba(0, 0, 0, 0.677);
 }
 
 
