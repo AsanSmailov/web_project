@@ -84,11 +84,6 @@
     pointer-events: none;
 }
 
-/* Включаем события мыши только для полностью видимых карточек */
-.card:nth-child(2) {
-    pointer-events: auto;
-}
-
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -154,4 +149,15 @@
 .next {
     right: -5%;
     transform:  rotate(-90deg);
+}
+
+@media (max-width: 768px) {
+    .description p {
+        font-size: .6rem;
+    }
+
+    .description h3,
+    .archit-title {
+        font-size: 1rem;
+    }
 }

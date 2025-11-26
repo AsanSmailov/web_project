@@ -107,7 +107,7 @@
     row-gap: 0;
     }
     .about-us img{
-        grid-row: 1/3;
+        grid-row: 2/3;
         padding-right: 3%;
     }
 
@@ -119,17 +119,22 @@
     }
 
     .stat-text{
-        font-size: .25rem;
+        font-size: .3rem;
+        
+    }
+
+    .stat-item-2 .stat-text{
+        gap:10px;
     }
 
     .stat-item-1 span,
     .number{
-    font-size: .44rem;
+    font-size: .4rem;
     font-weight: bold;
     }
 
     .about-description {
-        font-size: .45rem;
+        font-size: .6rem;
         grid-column: 2/5;
         margin-bottom: 0;
     }
