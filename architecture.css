@@ -25,10 +25,11 @@
     transition: transform 0.5s ease-in-out;
     gap: 20px;
     width: 90%;
+    overflow: hidden;
 }
 
 .card {
-    flex: 0 0 calc(33% - 15px);
+    flex: 0 0 calc(29% - 15px);
     background: white;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
