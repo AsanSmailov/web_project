@@ -17,6 +17,7 @@
     transform: translateX(-50%); 
     margin: 30px 0;
     padding-left: calc(20px + 5%);
+    
 }
 
 .carousel {
@@ -26,6 +27,48 @@
     gap: 20px;
     width: 90%;
     overflow: hidden;
+    position: relative;
+    
+}
+
+/* Обновлённое размытие с более плавным началом */
+.carousel::before,
+.carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 80px; /* Увеличил ширину для более плавного перехода */
+    z-index: 5;
+    pointer-events: none;
+}
+
+.carousel::before{
+    left: 0;
+    background: linear-gradient(
+        to right,
+        rgba(255,255,255, 1) 0%,
+        rgba(255,255,255,0.9) 15%,
+        rgba(255,255,255,0.7) 40%,
+        rgba(255,255,255,0.3) 70%,
+        rgba(255,255,255,0.1) 85%,
+        transparent 100%
+    );
+    
+}
+
+.carousel::after {
+    right: 0;
+    background: linear-gradient(
+        to left,
+        rgba(255,255,255, 1) 0%,
+        rgba(255,255,255,0.9) 15%,
+        rgba(255,255,255,0.7) 40%,
+        rgba(255,255,255,0.3) 70%,
+        rgba(255,255,255,0.1) 85%,
+        transparent 100%
+    );
+    z-index: 10;
 }
 
 .card {
@@ -34,11 +77,22 @@
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+    
+    /* Отключаем события мыши для всех карточек */
+    pointer-events: none;
+}
+
+/* Включаем события мыши только для полностью видимых карточек */
+.card:nth-child(2) {
+    pointer-events: auto;
 }
 
 .card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    z-index: 2;
 }
 
 .image-container {

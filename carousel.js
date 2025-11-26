@@ -7,25 +7,25 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardData = [
         {
             id: 1,
-            image: 'https://picsum.photos/400/300?random=1',
+            image: 'assets/main-bg.jpg',
             title: 'Горный пейзаж',
             description: 'Величественные горные вершины, покрытые снегом, на фоне голубого неба.'
         },
         {
             id: 2,
-            image: 'https://picsum.photos/400/300?random=2',
+            image: 'assets/main-bg.jpg',
             title: 'Морское побережье',
             description: 'Чистый песчаный пляж и лазурные воды океана под лучами заходящего солнца.'
         },
         {
             id: 3,
-            image: 'https://picsum.photos/400/300?random=3',
+            image: 'assets/main-bg.jpg',
             title: 'Лесная тропа',
             description: 'Тенистая тропа, ведущая через густой зеленый лес с высокими деревьями.'
         },
         {
             id: 4,
-            image: 'https://picsum.photos/400/300?random=4',
+            image: 'assets/main-bg.jpg',
             title: 'Городские огни',
             description: 'Ночной город с его яркими огнями и динамичной атмосферой.'
         },
@@ -117,6 +117,32 @@ document.addEventListener('DOMContentLoaded', function() {
         
         updateButtons();
         applyCardStyles();
+        updateCardHover(); // Добавляем проверку видимости для hover
+    }
+    
+    // Функция для обновления hover эффектов на карточках
+    function updateCardHover() {
+        const cards = document.querySelectorAll('.card');
+        const carouselRect = carousel.getBoundingClientRect();
+        
+        cards.forEach(card => {
+            const cardRect = card.getBoundingClientRect();
+            
+            // Проверяем, полностью ли карточка видна в карусели
+            // Учитываем небольшой зазор для edge cases
+            const isFullyVisible = 
+                cardRect.left >= carouselRect.left - 5 && 
+                cardRect.right <= carouselRect.right + 5;
+            
+            // Включаем/отключаем hover в зависимости от видимости
+            if (isFullyVisible) {
+                card.style.pointerEvents = 'auto';
+                card.classList.remove('partial-visible');
+            } else {
+                card.style.pointerEvents = 'none';
+                card.classList.add('partial-visible');
+            }
+        });
     }
     
     // Обработчики событий с циклической навигацией
@@ -161,14 +187,20 @@ document.addEventListener('DOMContentLoaded', function() {
         // Для циклического каруселя кнопки всегда видны
         prevBtn.style.display = 'block';
         nextBtn.style.display = 'block';
-        
-        // Можно добавить визуальную индикацию, что достигнут конец/начало
-        // но для бесконечного цикла это не обязательно
     }
 
     // Инициализация
     updateVisibleCards();
-    window.addEventListener('resize', updateVisibleCards);
+    
+    // Обработчики событий для обновления hover эффектов
+    window.addEventListener('resize', () => {
+        updateVisibleCards();
+        // Небольшая задержка для корректного расчета позиций после ресайза
+        setTimeout(updateCardHover, 100);
+    });
+    
+    // Также обновляем hover при скролле (на всякий случай)
+    carousel.addEventListener('scroll', updateCardHover);
     
     // Добавляем обработчики для свайпа (опционально)
     let startX = 0;
