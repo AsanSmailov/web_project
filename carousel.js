@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Адаптация количества видимых карточек в зависимости от размера экрана
             function updateVisibleCards() {
                 if (window.innerWidth <= 576) {
-                    visibleCards = 1;
+                    visibleCards = 2;
                 } else if (window.innerWidth <= 768) {
                     visibleCards = 2;
                 } else if (window.innerWidth <= 992) {
@@ -145,9 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
             function applyCardStyles() {
                 const cards = document.querySelectorAll('.card');
                 cards.forEach(card => {
-                    if (window.innerWidth <= 576) {
-                        card.style.flex = '0 0 100%';
-                    } else if (window.innerWidth <= 992) {
+                     if (window.innerWidth <= 992) {
                         card.style.flex = '0 0 calc(50% - 15px)';
                     } else {
                         card.style.flex = ''; // Сбрасываем стиль для больших экранов
