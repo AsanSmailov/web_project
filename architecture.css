@@ -1,10 +1,10 @@
 .architecture{
-    margin-top: 5%;
+    margin: 5% 6%;
     max-width: 100%;
 }
 
 .archit-title{
-    margin: 0 0 3% 5%;
+    margin: 0 0 3% 6.5%;
     font-size: 1.7rem;
     font-weight: 500;
     color: #333;
@@ -16,12 +16,15 @@
     left: 50%;
     transform: translateX(-50%); 
     margin: 30px 0;
+    padding-left: calc(20px + 5%);
 }
 
 .carousel {
     display: flex;
+    justify-content: center;
     transition: transform 0.5s ease-in-out;
     gap: 20px;
+    width: 90%;
 }
 
 .card {
@@ -91,11 +94,9 @@
 .prev {
     left: -5%;
     transform:  rotate(90deg);
-    /* animation: animation-arrow 1s forwards infinite; */
 }
 
 .next {
     right: -5%;
     transform:  rotate(-90deg);
-    /* animation: animation-arrow 1s forwards infinite; */
 }
