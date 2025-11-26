@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
             const carousel = document.querySelector('.carousel');
-            const dotsContainer = document.querySelector('.dots-container');
+            const card= document.querySelector('.card');
             const prevBtn = document.querySelector('.prev');
             const nextBtn = document.querySelector('.next');
-            const loadMoreBtn = document.querySelector('.load-more-btn');
             
             // Данные для карточек
             const cardData = [
@@ -110,6 +109,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 updateButtons();
+                applyCardStyles();
             }
             
             // Обработчики событий
@@ -141,6 +141,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 renderCards(currentIndex * visibleCards, visibleCards);
             }
+
+            function applyCardStyles() {
+                const cards = document.querySelectorAll('.card');
+                cards.forEach(card => {
+                    if (window.innerWidth <= 576) {
+                        card.style.flex = '0 0 100%';
+                    } else if (window.innerWidth <= 992) {
+                        card.style.flex = '0 0 calc(50% - 15px)';
+                    } else {
+                        card.style.flex = ''; // Сбрасываем стиль для больших экранов
+                    }
+                });
+            }
+
             function updateButtons(){
                 if(currentIndex == 0){
                     prevBtn.style.display = 'none';
