@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     
     let currentIndex = 0;
-    const visibleCards = 3;
+    let visibleCards = 3;
     let totalCards = cardData.length;
     
     // Функция для получения циклического индекса
@@ -100,11 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return (index + totalCards) % totalCards;
     }
     
-    // Функция для создания карточки
-    function createCard(card, isPartial = false) {
-        const partialClass = isPartial ? ' partial' : '';
+    // Функция для создания карточки (убраны все упоминания partial)
+    function createCard(card) {
         return `
-            <div class="card${partialClass}" data-id="${card.id}">
+            <div class="card" data-id="${card.id}">
                 <div class="image-container">
                     <img src="${card.image}" alt="${card.title}">
                 </div>
@@ -125,38 +124,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Отображаем карточки в циклическом порядке
         for (let i = 0; i < count; i++) {
             const circularIndex = getCircularIndex(startIndex + i);
-            const isPartial = i === count - 1; // Последняя карточка частичная
-            carousel.innerHTML += createCard(cardData[circularIndex], isPartial);
+            carousel.innerHTML += createCard(cardData[circularIndex]);
         }
         
         updateButtons();
         applyCardStyles();
-        updateCardHover(); // Добавляем проверку видимости для hover
-    }
-    
-    // Функция для обновления hover эффектов на карточках
-    function updateCardHover() {
-        const cards = document.querySelectorAll('.card');
-        const carouselRect = carousel.getBoundingClientRect();
-        
-        cards.forEach(card => {
-            const cardRect = card.getBoundingClientRect();
-            
-            // Проверяем, полностью ли карточка видна в карусели
-            // Учитываем небольшой зазор для edge cases
-            const isFullyVisible = 
-                cardRect.left >= carouselRect.left - 5 && 
-                cardRect.right <= carouselRect.right + 5;
-            
-            // Включаем/отключаем hover в зависимости от видимости
-            if (isFullyVisible) {
-                card.style.pointerEvents = 'auto';
-                card.classList.remove('partial-visible');
-            } else {
-                card.style.pointerEvents = 'none';
-                card.classList.add('partial-visible');
-            }
-        });
     }
     
     // Обработчики событий с циклической навигацией
@@ -170,13 +142,22 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCards(currentIndex, visibleCards);
     });
 
+    function updateVisibleCards() {
+        if (window.innerWidth <= 768) {
+            visibleCards = 2; 
+        } else {
+            visibleCards = 3; 
+        }
+        renderCards(currentIndex, visibleCards);
+    }
+
     function applyCardStyles() {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
-            if (window.innerWidth <= 576) {
-                card.style.flex = '0 0 calc(70% - 10px)';
+            if (window.innerWidth <= 768) {
+                card.style.flex = '0 0 calc(50% - 14px)';
             } else {
-                card.style.flex = '0 0 calc(50% - 15px)';
+                card.style.flex = '0 0 calc(33% - 15px)';
             }
         });
     }
@@ -190,17 +171,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Инициализация
     renderCards(currentIndex, visibleCards);
     
-    // Обработчики событий для обновления hover эффектов
+    // Обработчик ресайза
     window.addEventListener('resize', () => {
-        renderCards(currentIndex, visibleCards);
-        // Небольшая задержка для корректного расчета позиций после ресайза
-        setTimeout(updateCardHover, 100);
+        updateVisibleCards();
     });
     
-    // Также обновляем hover при скролле (на всякий случай)
-    carousel.addEventListener('scroll', updateCardHover);
-    
-    // Добавляем обработчики для свайпа (опционально)
+    // Добавляем обработчики для свайпа
     let startX = 0;
     let endX = 0;
     

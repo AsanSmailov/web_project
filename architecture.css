@@ -34,7 +34,7 @@
 }
 
 /* Обновлённое размытие с более плавным началом */
-.carousel::before,
+/* .carousel::before,
 .carousel::after {
     content: '';
     position: absolute;
@@ -71,7 +71,7 @@
         transparent 100%
     );
     z-index: 10;
-}
+} */
 
 .card {
     flex: 0 0 calc(29% - 15px);
@@ -111,7 +111,7 @@
 }
 
 .description {
-    padding: 20px;
+    padding: 15px;
 }
 
 .description h3 {
@@ -124,7 +124,12 @@
 .description p {
     color: #7f8c8d;
     font-size: 1.2rem;
-    line-height: 1.5;
+    line-height: 1.2;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .description p:last-child {

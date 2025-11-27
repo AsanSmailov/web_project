@@ -20,7 +20,7 @@
 .menu-toggle__line {
     width: 100%;
     height: 3px;
-    background-color: rgb(176, 163, 96);
+    background-color: #fff;
     border-radius: 2px;
     transition: all 0.3s ease;
     transform-origin: center;
@@ -42,7 +42,7 @@
 
 /* Ховер-эффекты */
 .menu-toggle:hover .menu-toggle__line {
-    background-color: rgb(239, 219, 120);
+    background-color: rgb(201, 201, 201);
 }
 
 .menu-toggle:focus {
@@ -97,11 +97,7 @@ body.stopScroll{
     top: 10%;
     left: 10%;
     }
-
-    .menu-toggle:hover .menu-toggle__line {
-    background-color: rgb(176, 163, 96);
-    }
-
+    
     .menu-toggle{
         visibility: visible;
     }
