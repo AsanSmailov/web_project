@@ -83,9 +83,6 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     position: relative;
     z-index: 1;
-    
-    /* Отключаем события мыши для всех карточек */
-    pointer-events: none;
 }
 
 .card:hover {
@@ -144,8 +141,8 @@
     transform: translateY(-50%);
     background-color: #ffffff00;
     border: none;
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -196,6 +193,11 @@
     .card{
         min-height: 75vh;
         max-height: 80vh;
+    }
+
+    .nav-btn{
+        height: 25px;
+        width: 25px;
     }
 
 }
