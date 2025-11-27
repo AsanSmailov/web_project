@@ -74,7 +74,7 @@
 } */
 
 .card {
-    flex: 0 0 calc(29% - 15px);
+    flex: 0 0 calc(33% - 15px);
     min-height: 80vh;
     min-height: 85vh;
     background: white;
@@ -191,6 +191,7 @@
     }
 
     .card{
+        flex: 0 0 calc(50% - 10px);
         min-height: 75vh;
         max-height: 80vh;
     }
