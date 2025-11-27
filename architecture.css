@@ -29,6 +29,7 @@
     width: 90%;
     overflow: hidden;
     position: relative;
+    padding-bottom: 20px;
     
 }
 
@@ -74,6 +75,8 @@
 
 .card {
     flex: 0 0 calc(29% - 15px);
+    min-height: 80vh;
+    min-height: 85vh;
     background: white;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -124,6 +127,12 @@
     line-height: 1.5;
 }
 
+.description p:last-child {
+    position: absolute;
+    bottom: 1vh;
+}
+
+
 .nav-btn {
     position: absolute;
     top: 50%;
@@ -157,6 +166,10 @@
         font-size: .6rem;
     }
 
+    .description{
+        padding: 5px;
+    }
+
     .description h3,
     .archit-title {
         font-size: 1rem;
@@ -170,4 +183,14 @@
     .carousel::after {
         width: 60px; 
     }
+
+    .carousel-container {
+    width: 95%;
+    }
+
+    .card{
+        min-height: 75vh;
+        max-height: 80vh;
+    }
+
 }
