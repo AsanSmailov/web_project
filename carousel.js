@@ -7,15 +7,17 @@ document.addEventListener('DOMContentLoaded', function() {
     const cardData = [
         {
             id: 1,
-            image: 'assets/main-bg.jpg',
-            title: 'Горный пейзаж',
-            description: 'Величественные горные вершины, покрытые снегом, на фоне голубого неба.'
+            image: 'assets/architecture/Дом Frame.jpg',
+            title: 'Дом Frame',
+            description: 'Этот дом рожден на границе уже заложенных рамок — фундамент существовал раньше, и именно он стал точкой отсчёта для новой архитектурной истории. Превращая ограничение в возможность, мы построили дом, который раскрывается в несколько уровней, словно разворачивающийся пейзаж.',
+            postscription: 'архитектура | частный дом | 2024'
         },
         {
             id: 2,
-            image: 'assets/main-bg.jpg',
-            title: 'Морское побережье',
-            description: 'Чистый песчаный пляж и лазурные воды океана под лучами заходящего солнца.'
+            image: 'assets/architecture/Casa terra.jpg',
+            title: 'Casa terra',
+            description: 'Этот дом задуман как тихое семейное убежище, куда можно вернуться после городской суеты, чтобы снова почувствовать тепло, спокойствие. Внутреннее пространство раскрывается плавно, как неторопливый сюжет: гостиная и кухня сливаются в светлую общую зону, где семейные вечера становятся главной традицией, а утренний воздух делает каждый день новым.',
+            postscription: 'архитектура | частный дом | 2024'
         },
         {
             id: 3,
@@ -80,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ];
     
     let currentIndex = 0;
-    let visibleCards = 4;
+    const visibleCards = 3;
     let totalCards = cardData.length;
     
     // Функция для получения циклического индекса
@@ -99,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="description">
                     <h3>${card.title}</h3>
                     <p>${card.description}</p>
+                    <p><br></p>
+                    <p>${card.postscription}</p>
                 </div>
             </div>
         `;
@@ -155,30 +159,14 @@ document.addEventListener('DOMContentLoaded', function() {
         currentIndex = getCircularIndex(currentIndex + 1);
         renderCards(currentIndex, visibleCards);
     });
-    
-    // Адаптация количества видимых карточек в зависимости от размера экрана
-    function updateVisibleCards() {
-        if (window.innerWidth <= 576) {
-            visibleCards = 3; // 1 полная + 2 частичные
-        } else if (window.innerWidth <= 768) {
-            visibleCards = 3; // 1 полная + 2 частичные
-        } else if (window.innerWidth <= 992) {
-            visibleCards = 3; // 1 полная + 2 частичные
-        } else {
-            visibleCards = 4; // 2 полные + 2 частичные
-        }
-        renderCards(currentIndex, visibleCards);
-    }
 
     function applyCardStyles() {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
             if (window.innerWidth <= 576) {
                 card.style.flex = '0 0 calc(70% - 10px)';
-            } else if (window.innerWidth <= 992) {
-                card.style.flex = '0 0 calc(50% - 14px)';
             } else {
-                card.style.flex = '0 0 calc(29% - 15px)';
+                card.style.flex = '0 0 calc(50% - 15px)';
             }
         });
     }
@@ -190,11 +178,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Инициализация
-    updateVisibleCards();
+    renderCards(currentIndex, visibleCards);
     
     // Обработчики событий для обновления hover эффектов
     window.addEventListener('resize', () => {
-        updateVisibleCards();
+        renderCards(currentIndex, visibleCards);
         // Небольшая задержка для корректного расчета позиций после ресайза
         setTimeout(updateCardHover, 100);
     });

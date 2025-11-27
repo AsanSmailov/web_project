@@ -56,6 +56,11 @@ function closeMenu(){
     menu.classList.remove('show');
     body.classList.remove('stopScroll');
 }
+function goto(e, str) {
+    closeMenu();
+    e.preventDefault();
+    smoothScrollTo(str);
+}
 
 document.getElementById('menu-main').addEventListener('click', function(e) {
     closeMenu();
@@ -64,20 +69,24 @@ document.getElementById('menu-main').addEventListener('click', function(e) {
 });
 
 document.getElementById('menu-about-us').addEventListener('click', function(e) {
-    closeMenu();
-    e.preventDefault();
-    smoothScrollTo('main');
+    goto(e, 'about-us');
+});
+
+document.getElementById('menu-about-us-pc').addEventListener('click', function(e) {
+    goto(e, 'about-us');
+});
+
+document.getElementById('architecture-pc').addEventListener('click', function(e) {
+    goto(e, 'main');
+});
+
+document.getElementById('architecture').addEventListener('click', function(e) {
+    goto(e, 'main');
 });
 
 document.getElementById('menu-contacts').addEventListener('click', function(e) {
-    closeMenu();
-    e.preventDefault();
-    smoothScrollTo('footer');
+    goto(e, 'footer');
 });
 
 
 
-document.getElementById('menu-about-us-pc').addEventListener('click', function(e) {
-    e.preventDefault();
-    smoothScrollTo('main');
-});

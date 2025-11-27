@@ -1,6 +1,7 @@
 .architecture{
-    margin: 5% 6%;
+    margin: 0 6% 5%;
     max-width: 100%;
+    padding-top: 6%;
 }
 
 .archit-title{
@@ -38,7 +39,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 80px; /* Увеличил ширину для более плавного перехода */
+    width: 80px;
     z-index: 5;
     pointer-events: none;
 }
@@ -127,7 +128,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: #fff;
+    background-color: #ffffff00;
     border: none;
     width: 50px;
     height: 50px;
@@ -159,5 +160,14 @@
     .description h3,
     .archit-title {
         font-size: 1rem;
+    }
+
+    .architecture{
+        padding-top: 15%;
+    }
+
+    .carousel::before,
+    .carousel::after {
+        width: 60px; 
     }
 }
