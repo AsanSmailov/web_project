@@ -94,13 +94,14 @@ body {
 
 .logo{
     position: fixed;
-    top: 1.5%;
+    top: 1.1%;
     left: 1%;
     width: 180px;
     height: 47px;
     background: none;
     border: none;
     cursor: pointer;
+    transform: scale(.9);
 
 }
 
@@ -123,7 +124,7 @@ body {
     display: inline;
     list-style: none;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .menu-pc ul li{
@@ -155,7 +156,7 @@ body {
     object-fit: contain;
     object-position: center;
     margin-left: -24px;
-    transform: scale(-1);
+    transform: scale(-.85);
     visibility: hidden; /* По умолчанию скрыта */
 
 }
@@ -183,6 +184,7 @@ body {
     .logo {
         scale: 0.7;
         top: .2%;
+        left: .2%;
         margin-bottom: 20px;
     }
 
@@ -199,7 +201,7 @@ body {
         line-height: 1.6;
     }
     .arrow-back {
-        scale: 0.6;
+        scale: 0.7;
         left: 6%;
         width: 40px;
         height: 85px;
