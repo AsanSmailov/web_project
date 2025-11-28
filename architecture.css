@@ -1,13 +1,13 @@
 .architecture{
-    margin: 0 6% 5%;
+    margin: 0 6% 4%;
     max-width: 100%;
-    padding-top: 6%;
+    padding-top: 4.5%;
 }
 
 .archit-title{
-    margin: 0 0 3% 6.5%;
+    margin: 0 0 1.5% 12%;
     font-size: 1.7rem;
-    font-weight: 500;
+    font-weight: bold;
     color: #333;
 }
 
@@ -16,7 +16,7 @@
     width: 90%;
     left: 50%;
     transform: translateX(-50%); 
-    margin: 30px 0;
+    margin: 0;
     padding-left: calc(20px + 5%);
     
 }
@@ -107,31 +107,41 @@
     transform: scale(1.05);
 }
 
-.description {
-    padding: 15px;
-}
-
 .description h3 {
     margin-bottom: 10px;
     font-size: 1.7rem;
     font-weight: 500;
     color: #333;
+    font-weight: bold;
+}
+
+.description {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 33vh); /* учитываем высоту изображения */
+    position: relative;
 }
 
 .description p {
     color: #7f8c8d;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     line-height: 1.2;
     text-align: justify;
     text-justify: inter-word;
     hyphens: auto;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.description p:not(:last-child) {
+    flex: 1;
 }
 
 .description p:last-child {
-    position: absolute;
-    bottom: 1vh;
+    font-weight: lighter;
 }
 
 
@@ -166,6 +176,7 @@
 @media (max-width: 768px) {
     .description p {
         font-size: .6rem;
+        margin: 0;
     }
 
     .description{
@@ -175,6 +186,11 @@
     .description h3,
     .archit-title {
         font-size: 1rem;
+    }
+
+    .archit-title {
+        text-align: center;
+        margin-left: 0;
     }
 
     .architecture{
@@ -192,7 +208,7 @@
 
     .card{
         flex: 0 0 calc(50% - 10px);
-        min-height: 75vh;
+        min-height: 70vh;
         max-height: 80vh;
     }
 

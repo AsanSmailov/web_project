@@ -110,7 +110,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="description">
                     <h3>${card.title}</h3>
                     <p>${card.description}</p>
-                    <p><br></p>
                     <p>${card.postscription}</p>
                 </div>
             </div>
