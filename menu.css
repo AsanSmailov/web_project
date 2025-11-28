@@ -99,6 +99,8 @@ body.stopScroll{
     }
     
     .menu-toggle{
+        top: .2%;
         visibility: visible;
+        transform: scale(0.7);
     }
 }

@@ -181,9 +181,9 @@ body {
 
 @media (max-width: 768px) {
     .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 20px;
+        scale: 0.7;
+        top: .2%;
+        margin-bottom: 20px;
     }
 
     h1 {
@@ -199,6 +199,7 @@ body {
         line-height: 1.6;
     }
     .arrow-back {
+        scale: 0.6;
         left: 6%;
         width: 40px;
         height: 85px;
@@ -212,5 +213,9 @@ body {
 
     .menu-pc{
         visibility: hidden;
+    }
+
+    .top-line{
+        height: 6%;
     }
 }
