@@ -30,6 +30,7 @@
     font-size: 1.1rem;
     line-height: 1.2;
     font-weight: normal;
+    padding: 10px;
 }
 
 .grid-container strong{
@@ -67,6 +68,7 @@
     }
     .grid-container div{
         font-size: .6rem;
+        padding: 6px;
     }
 
     .policy-title {
