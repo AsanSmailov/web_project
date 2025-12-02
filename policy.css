@@ -1,0 +1,71 @@
+.policy{
+    margin: 0 6% 4%;
+    max-width: 100%;
+    padding-top: 4.5%;
+}
+
+.policy-title{
+    margin-bottom: 1.5%;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.policy h2{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 20px;
+}
+
+
+.grid-container div{
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-weight: normal;
+}
+
+.grid-container strong{
+    color: #333;
+}
+
+.policy ol,
+.policy ul {
+    list-style-position: outside; /* Номера снаружи */
+    padding-left: 1.2em; 
+}
+
+.policy li {
+    text-indent: 0; /* Текст начинается левее номера */
+    padding-left: 0; /* Отступ для текста */
+    margin-left: 0; /* Убираем стандартный отступ */
+}
+
+.policy li::marker {
+    color: #333;
+}
+
+@media (max-width: 768px) {
+    .grid-container div{
+        font-size: .6rem;
+    }
+
+    .policy-title {
+        font-size: 1rem;
+    }
+
+    .policy h2{
+        font-size: .8rem;
+    }
+}

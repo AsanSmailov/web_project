@@ -68,12 +68,12 @@ document.getElementById('menu-main').addEventListener('click', function(e) {
     smoothScrollTo('home');
 });
 
-document.getElementById('menu-about-us').addEventListener('click', function(e) {
-    goto(e, 'about-us');
+document.getElementById('menu-policy').addEventListener('click', function(e) {
+    goto(e, 'policy');
 });
 
-document.getElementById('menu-about-us-pc').addEventListener('click', function(e) {
-    goto(e, 'about-us');
+document.getElementById('menu-policy-pc').addEventListener('click', function(e) {
+    goto(e, 'policy');
 });
 
 document.getElementById('architecture-pc').addEventListener('click', function(e) {
