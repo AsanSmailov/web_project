@@ -57,6 +57,16 @@
 }
 
 @media (max-width: 768px) {
+    .policy{
+        margin: 0 6% 4%;
+        max-width: 100%;
+        padding-top: 4.5%;
+    }
+    .grid-container{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 20px;
+    }
     .grid-container div{
         font-size: .6rem;
     }
