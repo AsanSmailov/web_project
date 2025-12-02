@@ -72,7 +72,7 @@
 /* Адаптивность */
 @media (max-width: 768px) {
     .about-us{
-        padding: 40px ;
+        padding: 30px ;
     }
 
     .stat-text{

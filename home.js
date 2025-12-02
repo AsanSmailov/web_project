@@ -62,10 +62,12 @@ function goto(e, str) {
     smoothScrollTo(str);
 }
 
+document.getElementById('logo').addEventListener('click', function(e) {
+    goto(e, 'home');
+});
+
 document.getElementById('menu-main').addEventListener('click', function(e) {
-    closeMenu();
-    e.preventDefault();
-    smoothScrollTo('home');
+    goto(e, 'home');
 });
 
 document.getElementById('menu-policy').addEventListener('click', function(e) {

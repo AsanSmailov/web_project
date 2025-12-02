@@ -43,14 +43,14 @@
 
 .policy ol,
 .policy ul {
-    list-style-position: outside; /* Номера снаружи */
-    padding-left: 1.2em; 
+    list-style-position: outside; 
+    padding-left: .8rem; 
 }
 
 .policy li {
-    text-indent: 0; /* Текст начинается левее номера */
-    padding-left: 0; /* Отступ для текста */
-    margin-left: 0; /* Убираем стандартный отступ */
+    text-indent: 0; 
+    padding-left: 0; 
+    margin-left: 0; 
 }
 
 .policy li::marker {
@@ -61,7 +61,7 @@
     .policy{
         margin: 0 6% 4%;
         max-width: 100%;
-        padding-top: 4.5%;
+        padding: 30px ;
     }
     .grid-container{
         display: grid;
