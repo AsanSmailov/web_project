@@ -23,7 +23,7 @@
 
 .carousel {
     display: flex;
-    justify-content: center;
+    justify-content: start;
     transition: transform 0.5s ease-in-out;
     gap: 20px;
     width: 90%;

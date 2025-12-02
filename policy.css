@@ -25,6 +25,7 @@
 
 
 .grid-container div{
+    background-color: #dfdfdf58;
     color: #7f8c8d;
     font-size: 1.1rem;
     line-height: 1.2;
@@ -64,8 +65,10 @@
     }
     .grid-container{
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr, 1fr;
         column-gap: 20px;
+        row-gap: 20px;
     }
     .grid-container div{
         font-size: .6rem;
