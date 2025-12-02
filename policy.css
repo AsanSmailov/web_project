@@ -29,11 +29,6 @@
     color: #7f8c8d;
     font-size: 1.1rem;
     line-height: 1.2;
-    text-align: justify;
-    text-justify: inter-word;
-    hyphens: auto;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
     font-weight: normal;
 }
 
@@ -44,7 +39,7 @@
 .policy ol,
 .policy ul {
     list-style-position: outside; 
-    padding-left: .8rem; 
+    padding-left: 2ch; 
 }
 
 .policy li {
