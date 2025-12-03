@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function updateVisibleCards() {
         if (window.innerWidth <= 768) {
-            visibleCards = 2; 
+            visibleCards = 1; 
         } else {
             visibleCards = 3; 
         }
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const cards = document.querySelectorAll('.card');
         cards.forEach(card => {
             if (window.innerWidth <= 768) {
-                card.style.flex = '0 0 calc(50% - 14px)';
+                card.style.flex = '0 0 95% ';
             } else {
                 card.style.flex = '0 0 calc(33% - 15px)';
             }

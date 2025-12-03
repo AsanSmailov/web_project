@@ -75,7 +75,7 @@ body.stopScroll{
     position: fixed;
     top: 10%;
     left: 10%;
-    font-size: 2rem;
+    font-size: 1.5rem;
     z-index: 9;
     color: white;
     list-style-type: none;

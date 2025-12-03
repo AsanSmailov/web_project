@@ -5,7 +5,7 @@
 }
 
 .archit-title{
-    margin: 0 0 1.5% 12%;
+    margin: 0 0 10% 12%;
     font-size: 1.7rem;
     font-weight: bold;
     color: #333;
@@ -182,6 +182,10 @@
     .archit-title {
         font-size: 1rem;
     }
+    .card:hover {
+        transform: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
 
     .archit-title {
         text-align: center;
@@ -192,9 +196,13 @@
         padding-top: 15%;
     }
 
-    .carousel::before,
+    /* .carousel::before,
     .carousel::after {
         width: 60px; 
+    } */
+
+    .carousel{
+        gap: 3%;
     }
 
     .carousel-container {
@@ -202,9 +210,10 @@
     }
 
     .card{
-        flex: 0 0 calc(50% - 10px);
+        flex: 0 0 100%;
         min-height: 70vh;
         max-height: 80vh;
+        margin-left: 3%;
     }
 
     .nav-btn{

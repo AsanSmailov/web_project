@@ -1,6 +1,5 @@
 footer{
-    background-color: rgb(121, 117, 98);
-    
+    background-color: #000;         
 }
 .footer-block{
     position: relative;
@@ -12,7 +11,8 @@ footer{
 }
 
 .contact h1{
-    font-size: 2rem;
+    font-size: 1.7rem;
+    color: #fff;
 }
 
 .social-network-list {
@@ -36,11 +36,12 @@ footer{
 }
 
 .copyright{
-
+    color: #fff;
     padding: 1.5% 0;
     text-align: center;
     border-top: 1px solid rgba(255,255,255,0.3); /* Разделительная линия */
     margin-top: auto; /* Прижимает к низу */
+    font-weight: lighter;
 }
 
 
@@ -48,5 +49,13 @@ footer{
     .footer-block{
         position: relative;
         margin: -2% 10% -2%;
+    }
+
+    .contact h1{
+        font-size: 1rem;
+    }
+
+    .copyright{
+        font-size: .6rem;
     }
 }
