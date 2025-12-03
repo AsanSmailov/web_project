@@ -5,10 +5,11 @@
 }
 
 .policy-title{
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     font-size: 1.7rem;
     font-weight: bold;
     color: #333;
+    text-align: center;
 }
 
 .policy h2{
@@ -74,6 +75,7 @@
     .policy-title {
         font-size: 1rem;
         text-align: center;
+        margin-bottom: 10%;
     }
 
     .policy h2{

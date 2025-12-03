@@ -2,11 +2,11 @@
     display: grid;
     grid-template-columns:  1fr 1fr 1fr;
     grid-template-rows: repeat(2, auto);
-    row-gap: 20px;
+    row-gap: 50px;
 }
 
 .about-us {
-    padding: 0px;
+    padding-top: 5% ;
     background: #fff;
     margin: 0 6% 4%;
 
@@ -19,7 +19,7 @@
     grid-column: 1 / 4;
     font-size: 1.2rem;
     line-height: 1.6;
-    margin: 0 0 50px;
+    margin: 0;
     color: #666;
     
 }
@@ -73,6 +73,10 @@
 @media (max-width: 768px) {
     .about-us{
         padding: 30px ;
+    }
+
+    .about-us .container{
+        row-gap: 20px;
     }
 
     .stat-text{

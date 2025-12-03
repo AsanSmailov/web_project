@@ -5,10 +5,11 @@
 }
 
 .archit-title{
-    margin: 0 0 10% 12%;
+    margin: 0 0 5%;
     font-size: 1.7rem;
     font-weight: bold;
     color: #333;
+    text-align: center;
 }
 
 .carousel-container {
@@ -189,7 +190,7 @@
 
     .archit-title {
         text-align: center;
-        margin-left: 0;
+        margin: 0 0 10%;
     }
 
     .architecture{
