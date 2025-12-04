@@ -3,6 +3,7 @@
 @import "menu.css";
 @import "architecture.css";
 @import "policy.css";
+@import "modal.css";
 
 @font-face {
     font-family: "SFPro";

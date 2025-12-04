@@ -14,19 +14,29 @@ document.addEventListener('DOMContentLoaded', async function() {
     }
     
     // Функция для создания карточки
-    function createCard(card) {
-        return `
-            <div class="card" data-id="${card.id}">
-                <div class="image-container">
-                    <img src="${card.image}" alt="${card.title}" loading="lazy">
-                </div>
-                <div class="description">
-                    <h3>${card.title}</h3>
-                    <p>${card.description}</p>
-                    <p class="postscription">${card.postscription}</p>
-                </div>
+    function createCard(card, sectionClass) {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        cardDiv.dataset.id = card.id;
+        cardDiv.dataset.section = sectionClass; // Добавляем информацию о секции
+        
+        cardDiv.innerHTML = `
+            <div class="image-container">
+                <img src="${card.image}" alt="${card.title}" loading="lazy">
+            </div>
+            <div class="description">
+                <h3>${card.title}</h3>
+                <p>${card.description}</p>
+                <p class="postscription">${card.postscription}</p>
             </div>
         `;
+        
+        // Добавляем обработчик клика
+        cardDiv.addEventListener('click', function() {
+            openModal(card);
+        });
+        
+        return cardDiv;
     }
     
     // Класс для управления каруселью
@@ -41,6 +51,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             this.prevBtn = null;
             this.nextBtn = null;
         }
+
         
         // Инициализация карусели
         async init() {
@@ -87,7 +98,8 @@ document.addEventListener('DOMContentLoaded', async function() {
             // Отображаем карточки в циклическом порядке
             for (let i = 0; i < count; i++) {
                 const circularIndex = this.getCircularIndex(startIndex + i);
-                this.carousel.innerHTML += createCard(this.cardData[circularIndex]);
+                const cardElement = createCard(this.cardData[circularIndex], this.sectionClass);
+                this.carousel.appendChild(cardElement);
             }
 
             this.applyCardStyles();
@@ -189,4 +201,159 @@ document.addEventListener('DOMContentLoaded', async function() {
         architectureCarousel.updateVisibleCards();
         designCarousel.updateVisibleCards();
     });
+
+    // Функция для открытия модального окна
+    function openModal(cardData) {
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalContent = document.getElementById('modalContent');
+    
+    // Получаем массив изображений (если есть) или используем одно изображение
+    const images = cardData.images || [cardData.image];
+    
+    // Создаем галерею изображений
+    const galleryHTML = images.map((img, index) => `
+        <div class="modal-gallery-item ${index === 0 ? 'active' : ''}">
+            <img src="${img}" alt="${cardData.title} - фото ${index + 1}" loading="lazy">
+        </div>
+    `).join('');
+    
+    // Создаем навигацию для галереи (если больше 1 фото)
+    const galleryNavHTML = images.length > 1 ? `
+        <div class="modal-gallery-nav">
+            ${images.map((_, index) => `
+                <button class="gallery-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></button>
+            `).join('')}
+        </div>
+        <button class="gallery-prev">‹</button>
+        <button class="gallery-next">›</button>
+    ` : '';
+    
+    // Заполняем модальное окно данными
+    modalContent.innerHTML = `
+            <div class="modal-gallery-container">
+                <div class="modal-gallery">
+                    ${galleryHTML}
+                </div>
+                ${galleryNavHTML}
+            </div>
+            <div class="modal-text">
+                <h2 class="modal-title">${cardData.title}</h2>
+                <div class="modal-description">
+                    ${cardData.detailedDescription || cardData.description}
+                    ${cardData.detailedDescription ? `<p><strong>Краткое описание:</strong> ${cardData.description}</p>` : ''}
+                </div>
+                
+                <div class="modal-details">
+                    <h4>Детали проекта</h4>
+                    <ul>
+                        <li><strong>Категория:</strong> ${cardData.postscription.split('|')[0]?.trim()}</li>
+                        <li><strong>Тип объекта:</strong> ${cardData.postscription.split('|')[1]?.trim()}</li>
+                        <li><strong>Год реализации:</strong> ${cardData.postscription.split('|')[2]?.trim()}</li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        
+        // Показываем модальное окно
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Инициализируем галерею, если есть несколько изображений
+        if (images.length > 1) {
+            initGallery();
+        }
+    }
+
+    // Функция для управления галереей в модальном окне
+    function initGallery() {
+        const galleryItems = document.querySelectorAll('.modal-gallery-item');
+        const dots = document.querySelectorAll('.gallery-dot');
+        const prevBtn = document.querySelector('.gallery-prev');
+        const nextBtn = document.querySelector('.gallery-next');
+        let currentIndex = 0;
+        
+        function showImage(index) {
+            // Скрываем все изображения
+            galleryItems.forEach(item => item.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Показываем выбранное изображение
+            galleryItems[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentIndex = index;
+        }
+        
+        // Обработчики для точек
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => showImage(index));
+        });
+        
+        // Кнопка "предыдущее"
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = galleryItems.length - 1;
+                showImage(newIndex);
+            });
+        }
+        
+        // Кнопка "следующее"
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                let newIndex = currentIndex + 1;
+                if (newIndex >= galleryItems.length) newIndex = 0;
+                showImage(newIndex);
+            });
+        }
+        
+        // Добавляем поддержку клавиатуры
+        document.addEventListener('keydown', function(e) {
+            if (!document.querySelector('.modal-overlay.active')) return;
+            
+            if (e.key === 'ArrowLeft') {
+                let newIndex = currentIndex - 1;
+                if (newIndex < 0) newIndex = galleryItems.length - 1;
+                showImage(newIndex);
+            } else if (e.key === 'ArrowRight') {
+                let newIndex = currentIndex + 1;
+                if (newIndex >= galleryItems.length) newIndex = 0;
+                showImage(newIndex);
+            }
+        });
+    }
+
+    // Функция для закрытия модального окна
+    function closeModal() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    // Инициализация модальных окон
+    function initModals() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        
+        // Закрытие по клику на крестик
+        if (modalClose) {
+            modalClose.addEventListener('click', closeModal);
+        }
+        
+        // Закрытие по клику на оверлей
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', function(e) {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+        }
+        
+        // Закрытие по клавише Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
+    initModals();
 });
