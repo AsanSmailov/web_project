@@ -204,32 +204,32 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Функция для открытия модального окна
     function openModal(cardData) {
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalContent = document.getElementById('modalContent');
-    
-    // Получаем массив изображений (если есть) или используем одно изображение
-    const images = cardData.images || [cardData.image];
-    
-    // Создаем галерею изображений
-    const galleryHTML = images.map((img, index) => `
-        <div class="modal-gallery-item ${index === 0 ? 'active' : ''}">
-            <img src="${img}" alt="${cardData.title} - фото ${index + 1}" loading="lazy">
-        </div>
-    `).join('');
-    
-    // Создаем навигацию для галереи (если больше 1 фото)
-    const galleryNavHTML = images.length > 1 ? `
-        <div class="modal-gallery-nav">
-            ${images.map((_, index) => `
-                <button class="gallery-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></button>
-            `).join('')}
-        </div>
-        <button class="gallery-prev">‹</button>
-        <button class="gallery-next">›</button>
-    ` : '';
-    
-    // Заполняем модальное окно данными
-    modalContent.innerHTML = `
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Получаем массив изображений (если есть) или используем одно изображение
+        const images = cardData.images || [cardData.image];
+        
+        // Создаем галерею изображений
+        const galleryHTML = images.map((img, index) => `
+            <div class="modal-gallery-item ${index === 0 ? 'active' : ''}">
+                <img src="${img}" alt="${cardData.title} - фото ${index + 1}" loading="lazy">
+            </div>
+        `).join('');
+        
+        // Создаем навигацию для галереи (если больше 1 фото)
+        const galleryNavHTML = images.length > 1 ? `
+            <div class="modal-gallery-nav">
+                ${images.map((_, index) => `
+                    <button class="gallery-dot ${index === 0 ? 'active' : ''}" data-index="${index}"></button>
+                `).join('')}
+            </div>
+            <button class="gallery-prev">‹</button>
+            <button class="gallery-next">›</button>
+        ` : '';
+        
+        // Заполняем модальное окно данными
+        modalContent.innerHTML = `
             <div class="modal-gallery-container">
                 <div class="modal-gallery">
                     ${galleryHTML}
@@ -244,12 +244,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 </div>
                 
                 <div class="modal-details">
-                    <h4>Детали проекта</h4>
-                    <ul>
-                        <li><strong>Категория:</strong> ${cardData.postscription.split('|')[0]?.trim()}</li>
-                        <li><strong>Тип объекта:</strong> ${cardData.postscription.split('|')[1]?.trim()}</li>
-                        <li><strong>Год реализации:</strong> ${cardData.postscription.split('|')[2]?.trim()}</li>
-                    </ul>
+                     <p>${cardData.postscription}</p>
                 </div>
             </div>
         `;
