@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         `;
     }
     
-    // Класс для управления каруселем
+    // Класс для управления каруселью
     class CarouselManager {
         constructor(sectionClass, jsonFile) {
             this.sectionClass = sectionClass;
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             this.nextBtn = null;
         }
         
-        // Инициализация каруселя
+        // Инициализация карусели
         async init() {
             const section = document.querySelector(this.sectionClass);
             if (!section) {
@@ -55,13 +55,12 @@ document.addEventListener('DOMContentLoaded', async function() {
             this.nextBtn = section.querySelector('.next');
             
             if (!this.carousel) {
-                console.warn('Карусель не найден в секции', this.sectionClass);
+                console.warn('Карусель не найдена в секции', this.sectionClass);
                 return;
             }
             
             // Загружаем данные
             this.cardData = await loadCards(this.jsonFile);
-            console.log(`Данные для ${this.sectionClass} загружены:`, this.cardData.length, 'карточек');
             
             if (this.cardData.length > 0) {
                 this.initCarousel();
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         // Отображение карточек с циклическим эффектом
         renderCards(startIndex, count) {
             if (!this.carousel || this.cardData.length === 0) {
-                console.warn('Карусель не найден или нет данных');
+                console.warn('Карусель не найдена или нет данных');
                 return;
             }
             
@@ -90,8 +89,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 const circularIndex = this.getCircularIndex(startIndex + i);
                 this.carousel.innerHTML += createCard(this.cardData[circularIndex]);
             }
-            
-            this.updateButtons();
+
             this.applyCardStyles();
         }
         
@@ -104,10 +102,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 this.visibleCards = 3;
             }
             
-            // Проверяем, что у нас достаточно карточек
-            if (this.cardData.length > 0) {
-                this.renderCards(this.currentIndex, this.visibleCards);
-            }
+            this.renderCards(this.currentIndex, this.visibleCards);
         }
         
         applyCardStyles() {
@@ -116,20 +111,14 @@ document.addEventListener('DOMContentLoaded', async function() {
                 if (window.innerWidth <= 768) {
                     card.style.flex = '0 0 95%';
                 } else if (window.innerWidth <= 1024) {
-                    card.style.flex = '0 0 calc(50% - 20px)';
+                    card.style.flex = '0 0 calc(50% - 15px)';
                 } else {
                     card.style.flex = '0 0 calc(33.333% - 15px)';
                 }
             });
         }
         
-        updateButtons() {
-            // Для циклического каруселя кнопки всегда видны
-            if (this.prevBtn) this.prevBtn.style.display = 'block';
-            if (this.nextBtn) this.nextBtn.style.display = 'block';
-        }
-        
-        // Инициализация каруселя после загрузки данных
+        // Инициализация карусели после загрузки данных
         initCarousel() {
             this.updateVisibleCards();
             
@@ -187,7 +176,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Создаем менеджеры для каждой карусели
     const architectureCarousel = new CarouselManager('.architecture', 'architecture.json');
-    const designCarousel = new CarouselManager('.design', 'design.json'); // Предполагаем, что есть design.json
+    const designCarousel = new CarouselManager('.design', 'design.json'); 
     
     // Инициализируем обе карусели
     await Promise.all([
