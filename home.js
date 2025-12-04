@@ -86,6 +86,14 @@ document.getElementById('architecture').addEventListener('click', function(e) {
     goto(e, 'main');
 });
 
+document.getElementById('design-pc').addEventListener('click', function(e) {
+    goto(e, 'design-section');
+});
+
+document.getElementById('design').addEventListener('click', function(e) {
+    goto(e, 'design-section');
+});
+
 document.getElementById('menu-contacts').addEventListener('click', function(e) {
     goto(e, 'footer');
 });

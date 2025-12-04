@@ -1,206 +1,203 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const carousel = document.querySelector('.carousel');
-    const prevBtn = document.querySelector('.prev');
-    const nextBtn = document.querySelector('.next');
-    
-    // Данные для карточек
-    const cardData = [
-        {
-            id: 1,
-            image: 'assets/architecture/Дом Frame.jpg',
-            title: 'Дом Frame',
-            description: 'Этот дом рожден на&nbsp;границе уже заложенных рамок — фундамент существовал раньше, и&nbsp;именно он стал точкой отсчёта для новой архитектурной истории. Превращая ограничение в&nbsp;возможность, мы построили дом, который раскрывается в&nbsp;несколько уровней, словно разворачивающийся пейзаж.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 2,
-            image: 'assets/architecture/Casa terra.jpg',
-            title: 'Casa terra',
-            description: 'Этот дом задуман как тихое семейное убежище, куда можно вернуться после городской суеты, чтобы снова почувствовать тепло, спокойствие. Внутреннее пространство раскрывается плавно, как неторопливый сюжет: гостиная и&nbsp;кухня сливаются в&nbsp;светлую общую зону, где семейные вечера становятся главной традицией, а&nbsp;утренний воздух делает каждый день новым.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 3,
-            image: 'assets/main-bg.jpg',
-            title: 'Лесная тропа',
-            description: 'Тенистая тропа, ведущая через густой зеленый лес с высокими деревьями.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 4,
-            image: 'assets/main-bg.jpg',
-            title: 'Городские огни',
-            description: 'Ночной город с его яркими огнями и динамичной атмосферой.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 5,
-            image: 'https://picsum.photos/400/300?random=5',
-            title: 'Осенний парк',
-            description: 'Живописный осенний парк с золотистыми и багряными листьями деревьев.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 6,
-            image: 'https://picsum.photos/400/300?random=6',
-            title: 'Зимняя сказка',
-            description: 'Замерзшее озеро и деревья, покрытые инеем, в морозный зимний день.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 7,
-            image: 'https://picsum.photos/400/300?random=7',
-            title: 'Пустынный пейзаж',
-            description: 'Бескрайние песчаные дюны под палящим солнцем пустыни.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 8,
-            image: 'https://picsum.photos/400/300?random=8',
-            title: 'Водопад',
-            description: 'Мощный водопад, низвергающийся с высокой скалы в кристально чистое озеро.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 9,
-            image: 'https://picsum.photos/400/300?random=9',
-            title: 'Цветущий сад',
-            description: 'Яркие цветы и зеленые растения в ухоженном саду весенним утром.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 10,
-            image: 'https://picsum.photos/400/300?random=10',
-            title: 'Архитектура',
-            description: 'Великолепное историческое здание с уникальной архитектурой и деталями.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 11,
-            image: 'https://picsum.photos/400/300?random=11',
-            title: 'Деревенский пейзаж',
-            description: 'Уютный деревенский домик с садом и живописными окрестностями.',
-            postscription: 'архитектура | частный дом | 2024'
-        },
-        {
-            id: 12,
-            image: 'https://picsum.photos/400/300?random=12',
-            title: 'Звездное небо',
-            description: 'Яркие звезды и млечный путь в чистом ночном небе над горами.',
-            postscription: 'архитектура | частный дом | 2024'
+document.addEventListener('DOMContentLoaded', async function() {
+    // Загрузка данных из JSON
+    async function loadCards(jsonFile) {
+        try {
+            const response = await fetch(jsonFile);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error(`Ошибка загрузки данных из ${jsonFile}:`, error);
+            return [];
         }
-    ];
-    
-    let currentIndex = 0;
-    let visibleCards = 3;
-    let totalCards = cardData.length;
-    
-    // Функция для получения циклического индекса
-    function getCircularIndex(index) {
-        return (index + totalCards) % totalCards;
     }
     
-    // Функция для создания карточки (убраны все упоминания partial)
+    // Функция для создания карточки
     function createCard(card) {
         return `
             <div class="card" data-id="${card.id}">
                 <div class="image-container">
-                    <img src="${card.image}" alt="${card.title}">
+                    <img src="${card.image}" alt="${card.title}" loading="lazy">
                 </div>
                 <div class="description">
                     <h3>${card.title}</h3>
                     <p>${card.description}</p>
-                    <p>${card.postscription}</p>
+                    <p class="postscription">${card.postscription}</p>
                 </div>
             </div>
         `;
     }
     
-    // Функция для отображения карточек с циклическим эффектом
-    function renderCards(startIndex, count) {
-        carousel.innerHTML = '';
-        
-        // Отображаем карточки в циклическом порядке
-        for (let i = 0; i < count; i++) {
-            const circularIndex = getCircularIndex(startIndex + i);
-            carousel.innerHTML += createCard(cardData[circularIndex]);
+    // Класс для управления каруселем
+    class CarouselManager {
+        constructor(sectionClass, jsonFile) {
+            this.sectionClass = sectionClass;
+            this.jsonFile = jsonFile;
+            this.cardData = [];
+            this.currentIndex = 0;
+            this.visibleCards = 3;
+            this.carousel = null;
+            this.prevBtn = null;
+            this.nextBtn = null;
         }
         
-        updateButtons();
-        applyCardStyles();
-    }
-    
-    // Обработчики событий с циклической навигацией
-    prevBtn.addEventListener('click', () => {
-        currentIndex = getCircularIndex(currentIndex - 1);
-        renderCards(currentIndex, visibleCards);
-    });
-    
-    nextBtn.addEventListener('click', () => {
-        currentIndex = getCircularIndex(currentIndex + 1);
-        renderCards(currentIndex, visibleCards);
-    });
-
-    function updateVisibleCards() {
-        if (window.innerWidth <= 768) {
-            visibleCards = 1; 
-        } else {
-            visibleCards = 3; 
+        // Инициализация каруселя
+        async init() {
+            const section = document.querySelector(this.sectionClass);
+            if (!section) {
+                console.warn(`Секция ${this.sectionClass} не найдена`);
+                return;
+            }
+            
+            this.carousel = section.querySelector('.carousel');
+            this.prevBtn = section.querySelector('.prev');
+            this.nextBtn = section.querySelector('.next');
+            
+            if (!this.carousel) {
+                console.warn('Карусель не найден в секции', this.sectionClass);
+                return;
+            }
+            
+            // Загружаем данные
+            this.cardData = await loadCards(this.jsonFile);
+            console.log(`Данные для ${this.sectionClass} загружены:`, this.cardData.length, 'карточек');
+            
+            if (this.cardData.length > 0) {
+                this.initCarousel();
+            } else {
+                this.carousel.innerHTML = '<p>Нет данных для отображения</p>';
+            }
         }
-        renderCards(currentIndex, visibleCards);
-    }
-
-    function applyCardStyles() {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
+        
+        // Получение циклического индекса
+        getCircularIndex(index) {
+            if (this.cardData.length === 0) return 0;
+            return (index + this.cardData.length) % this.cardData.length;
+        }
+        
+        // Отображение карточек с циклическим эффектом
+        renderCards(startIndex, count) {
+            if (!this.carousel || this.cardData.length === 0) {
+                console.warn('Карусель не найден или нет данных');
+                return;
+            }
+            
+            this.carousel.innerHTML = '';
+            
+            // Отображаем карточки в циклическом порядке
+            for (let i = 0; i < count; i++) {
+                const circularIndex = this.getCircularIndex(startIndex + i);
+                this.carousel.innerHTML += createCard(this.cardData[circularIndex]);
+            }
+            
+            this.updateButtons();
+            this.applyCardStyles();
+        }
+        
+        updateVisibleCards() {
             if (window.innerWidth <= 768) {
-                card.style.flex = '0 0 95% ';
+                this.visibleCards = 1;
+            } else if (window.innerWidth <= 1024) {
+                this.visibleCards = 2;
             } else {
-                card.style.flex = '0 0 calc(33% - 15px)';
+                this.visibleCards = 3;
             }
-        });
-    }
-
-    function updateButtons() {
-        // Для циклического каруселя кнопки всегда видны
-        prevBtn.style.display = 'block';
-        nextBtn.style.display = 'block';
-    }
-
-    // Инициализация
-    renderCards(currentIndex, visibleCards);
-    
-    // Обработчик ресайза
-    window.addEventListener('resize', () => {
-        updateVisibleCards();
-    });
-    
-    // Добавляем обработчики для свайпа
-    let startX = 0;
-    let endX = 0;
-    
-    carousel.addEventListener('touchstart', (e) => {
-        startX = e.touches[0].clientX;
-    });
-    
-    carousel.addEventListener('touchend', (e) => {
-        endX = e.changedTouches[0].clientX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const diff = startX - endX;
+            
+            // Проверяем, что у нас достаточно карточек
+            if (this.cardData.length > 0) {
+                this.renderCards(this.currentIndex, this.visibleCards);
+            }
+        }
         
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Свайп влево - следующая карточка
-                currentIndex = getCircularIndex(currentIndex + 1);
-            } else {
-                // Свайп вправо - предыдущая карточка
-                currentIndex = getCircularIndex(currentIndex - 1);
+        applyCardStyles() {
+            const cards = this.carousel.querySelectorAll('.card');
+            cards.forEach(card => {
+                if (window.innerWidth <= 768) {
+                    card.style.flex = '0 0 95%';
+                } else if (window.innerWidth <= 1024) {
+                    card.style.flex = '0 0 calc(50% - 20px)';
+                } else {
+                    card.style.flex = '0 0 calc(33.333% - 15px)';
+                }
+            });
+        }
+        
+        updateButtons() {
+            // Для циклического каруселя кнопки всегда видны
+            if (this.prevBtn) this.prevBtn.style.display = 'block';
+            if (this.nextBtn) this.nextBtn.style.display = 'block';
+        }
+        
+        // Инициализация каруселя после загрузки данных
+        initCarousel() {
+            this.updateVisibleCards();
+            
+            // Обработчики событий с циклической навигацией
+            if (this.prevBtn) {
+                this.prevBtn.addEventListener('click', () => {
+                    this.currentIndex = this.getCircularIndex(this.currentIndex - 1);
+                    this.renderCards(this.currentIndex, this.visibleCards);
+                });
             }
-            renderCards(currentIndex, visibleCards);
+            
+            if (this.nextBtn) {
+                this.nextBtn.addEventListener('click', () => {
+                    this.currentIndex = this.getCircularIndex(this.currentIndex + 1);
+                    this.renderCards(this.currentIndex, this.visibleCards);
+                });
+            }
+            
+            // Добавляем обработчики для свайпа
+            this.setupSwipe();
+        }
+        
+        setupSwipe() {
+            if (!this.carousel) return;
+            
+            let startX = 0;
+            let endX = 0;
+            
+            this.carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+            });
+            
+            this.carousel.addEventListener('touchend', (e) => {
+                endX = e.changedTouches[0].clientX;
+                this.handleSwipe(startX, endX);
+            });
+        }
+        
+        handleSwipe(startX, endX) {
+            const swipeThreshold = 50;
+            const diff = startX - endX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Свайп влево - следующая карточка
+                    this.currentIndex = this.getCircularIndex(this.currentIndex + 1);
+                } else {
+                    // Свайп вправо - предыдущая карточка
+                    this.currentIndex = this.getCircularIndex(this.currentIndex - 1);
+                }
+                this.renderCards(this.currentIndex, this.visibleCards);
+            }
         }
     }
+    
+    // Создаем менеджеры для каждой карусели
+    const architectureCarousel = new CarouselManager('.architecture', 'architecture.json');
+    const designCarousel = new CarouselManager('.design', 'design.json'); // Предполагаем, что есть design.json
+    
+    // Инициализируем обе карусели
+    await Promise.all([
+        architectureCarousel.init(),
+        designCarousel.init()
+    ]);
+    
+    // Обработчик ресайза для обеих каруселей
+    window.addEventListener('resize', () => {
+        architectureCarousel.updateVisibleCards();
+        designCarousel.updateVisibleCards();
+    });
 });

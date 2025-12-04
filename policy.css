@@ -58,7 +58,7 @@
     .policy{
         margin: 0 6%;
         max-width: 100%;
-        padding: calc(15% - 20px) 30px 0 ;
+        padding: 15% 30px 0 ;
     }
     .grid-container{
         display: grid;

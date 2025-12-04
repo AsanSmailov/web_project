@@ -1,10 +1,12 @@
-.architecture{
+.architecture,
+.design{
     margin: 0 6%;
     max-width: 100%;
     padding-top: 4.5%;
 }
 
-.archit-title{
+.archit-title,
+.design-title{
     margin: 0 0 5%;
     font-size: 1.7rem;
     font-weight: bold;
@@ -26,7 +28,7 @@
     display: flex;
     justify-content: start;
     transition: transform 0.5s ease-in-out;
-    gap: 20px;
+    gap: 15px;
     width: 90%;
     overflow: hidden;
     position: relative;
@@ -76,8 +78,8 @@
 
 .card {
     flex: 0 0 calc(33% - 15px);
-    min-height: 80vh;
-    min-height: 85vh;
+    min-height: 92vh;
+    max-height: 95vh;
     background: white;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -179,8 +181,7 @@
         padding: 5px;
     }
 
-    .description h3,
-    .archit-title {
+    .description h3 {
         font-size: 1rem;
     }
     .card:hover {
@@ -188,12 +189,15 @@
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
 
-    .archit-title {
+    .archit-title,
+    .design-title {
         text-align: center;
         margin: 0 0 10%;
+        font-size: 1rem;
     }
 
-    .architecture{
+    .architecture,
+    .design{
         padding-top: 15%;
     }
 
