@@ -190,9 +190,6 @@
         transform: none;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-    .card:first-child{
-        margin-left: 0;
-    }
 
     .archit-title,
     .design-title {
@@ -225,7 +222,6 @@
         flex: 0 0 100%;
         min-height: 70vh;
         max-height: 80vh;
-        margin-left: 3%;
     }
 
     .nav-btn{

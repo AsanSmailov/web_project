@@ -31,7 +31,7 @@ document.getElementById('arrowDown').addEventListener('click', function(e) {
     smoothScrollTo('main');
 });
 
-// Обработчик для стрелки назад (если нужно)
+// Обработчик для стрелки назад
 document.querySelector('.arrow-back').addEventListener('click', function(e) {
     e.preventDefault();
     smoothScrollTo('home');
