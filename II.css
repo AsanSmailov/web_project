@@ -58,6 +58,9 @@
 
 .II-card-content {
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 200px);
 }
 
 .II-card-title {
@@ -68,6 +71,7 @@
 }
 
 .II-card-description {
+    flex: 1;
     color: #7f8c8d;
     font-size: 1.1rem;
     line-height: 1.1;
@@ -78,6 +82,7 @@
     font-size: 1.1rem;
     color: #999;
     font-weight: lighter;
+    margin: 0;
 }
 
 /* Адаптивность для мобильных устройств */

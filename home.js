@@ -94,6 +94,14 @@ document.getElementById('design').addEventListener('click', function(e) {
     goto(e, 'design-section');
 });
 
+document.getElementById('menu-ii').addEventListener('click', function(e) {
+    goto(e, 'II-section');
+});
+
+document.getElementById('menu-ii-pc').addEventListener('click', function(e) {
+    goto(e, 'II-section');
+});
+
 document.getElementById('menu-contacts').addEventListener('click', function(e) {
     goto(e, 'footer');
 });
