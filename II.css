@@ -1,0 +1,132 @@
+.II{
+    margin: 0 6% 5%;
+    max-width: 100%;
+    padding-top: 4.5%;
+}
+
+.II-title{
+    margin-bottom: 5%;
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.II-description {
+    text-align: justify;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.II-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.II-card {
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.II-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.II-card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.II-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.II-card:hover .II-card-image img {
+    transform: scale(1.05);
+}
+
+.II-card-content {
+    padding: 20px;
+}
+
+.II-card-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.II-card-description {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    line-height: 1.1;
+    margin-bottom: 15px;
+}
+
+.II-card-postscription {
+    font-size: 1.1rem;
+    color: #999;
+    font-weight: lighter;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 1024px) {
+    .II-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .II{
+        margin: 0 6% 5%;
+        max-width: 100%;
+        padding: 15% 30px 0 ;
+    }
+    
+    .II-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .II-title {
+        font-size: 1rem;
+        margin-bottom: 20px;
+    }
+    
+    .II-description {
+        font-size: .6rem;
+        margin-bottom: 30px;
+        padding: 0 10px;
+    }
+    
+    .II-card-image {
+        height: 180px;
+    }
+    
+    .II-card-content {
+        padding: 15px;
+    }
+    
+    .II-card-title {
+        font-size: 1rem;
+    }
+    
+    .II-card-description {
+        font-size: 0.6rem;
+    }
+    .II-card-postscription {
+        font-size: 0.6rem;
+    }
+}

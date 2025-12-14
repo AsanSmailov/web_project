@@ -1,4 +1,74 @@
+
+
 document.addEventListener('DOMContentLoaded', async function() {
+
+    // Функция для загрузки и отображения карточек ИИ
+    async function loadIICards() {
+        try {
+            const response = await fetch('II.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const cardsData = await response.json();
+            const cardsContainer = document.querySelector('.II .cards');
+            
+            if (!cardsContainer) {
+                console.warn('Контейнер для карточек ИИ не найден');
+                return;
+            }
+            
+            // Очищаем контейнер
+            cardsContainer.innerHTML = '';
+            
+            // Создаем сетку для карточек
+            const gridContainer = document.createElement('div');
+            gridContainer.className = 'II-cards';
+            
+            // Создаем и добавляем карточки
+            cardsData.forEach(card => {
+                const cardElement = createIICard(card);
+                gridContainer.appendChild(cardElement);
+            });
+            
+            cardsContainer.appendChild(gridContainer);
+            
+        } catch (error) {
+            console.error('Ошибка загрузки данных ИИ:', error);
+            const cardsContainer = document.querySelector('.II .cards');
+            if (cardsContainer) {
+                cardsContainer.innerHTML = '<p>Не удалось загрузить концепции ИИ</p>';
+            }
+        }
+    }
+
+    // Функция для создания карточки ИИ
+    function createIICard(card) {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'II-card';
+        cardDiv.dataset.id = card.id;
+        
+        cardDiv.innerHTML = `
+            <div class="II-card-image">
+                <img src="${card.image}" alt="${card.title}" loading="lazy">
+            </div>
+            <div class="II-card-content">
+                <h3 class="II-card-title">${card.title}</h3>
+                <p class="II-card-description">${card.description}</p>
+                <p class="II-card-postscription">${card.postscription}</p>
+            </div>
+        `;
+        
+        // Добавляем обработчик клика для открытия модального окна
+        cardDiv.addEventListener('click', function() {
+            openModal(card);
+        });
+        
+        return cardDiv;
+    }
+
+    loadIICards();
+
     // Загрузка данных из JSON
     async function loadCards(jsonFile) {
         try {
