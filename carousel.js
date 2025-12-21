@@ -1,129 +1,25 @@
-
-
+// carousel.js - универсальный менеджер для всех разделов
 document.addEventListener('DOMContentLoaded', async function() {
-
-    // Функция для загрузки и отображения карточек ИИ
-    async function loadIICards() {
-        try {
-            const response = await fetch('II.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const cardsData = await response.json();
-            const cardsContainer = document.querySelector('.II .cards');
-            
-            if (!cardsContainer) {
-                console.warn('Контейнер для карточек ИИ не найден');
-                return;
-            }
-            
-            // Очищаем контейнер
-            cardsContainer.innerHTML = '';
-            
-            // Создаем сетку для карточек
-            const gridContainer = document.createElement('div');
-            gridContainer.className = 'II-cards';
-            
-            // Создаем и добавляем карточки
-            cardsData.forEach(card => {
-                const cardElement = createIICard(card);
-                gridContainer.appendChild(cardElement);
-            });
-            
-            cardsContainer.appendChild(gridContainer);
-            
-        } catch (error) {
-            console.error('Ошибка загрузки данных ИИ:', error);
-            const cardsContainer = document.querySelector('.II .cards');
-            if (cardsContainer) {
-                cardsContainer.innerHTML = '<p>Не удалось загрузить концепции ИИ</p>';
-            }
-        }
-    }
-
-    // Функция для создания карточки ИИ
-    function createIICard(card) {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'II-card';
-        cardDiv.dataset.id = card.id;
-        
-        cardDiv.innerHTML = `
-            <div class="II-card-image">
-                <img src="${card.image}" alt="${card.title}" loading="lazy">
-            </div>
-            <div class="II-card-content">
-                <h3 class="II-card-title">${card.title}</h3>
-                <p class="II-card-description">${card.description}</p>
-                <p class="II-card-postscription">${card.postscription}</p>
-            </div>
-        `;
-        
-        // Добавляем обработчик клика для открытия модального окна
-        cardDiv.addEventListener('click', function() {
-            openModal(card);
-        });
-        
-        return cardDiv;
-    }
-
-    loadIICards();
-
-    // Загрузка данных из JSON
-    async function loadCards(jsonFile) {
-        try {
-            const response = await fetch(jsonFile);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return await response.json();
-        } catch (error) {
-            console.error(`Ошибка загрузки данных из ${jsonFile}:`, error);
-            return [];
-        }
-    }
-    
-    // Функция для создания карточки
-    function createCard(card, sectionClass) {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'card';
-        cardDiv.dataset.id = card.id;
-        cardDiv.dataset.section = sectionClass; // Добавляем информацию о секции
-        
-        cardDiv.innerHTML = `
-            <div class="image-container">
-                <img src="${card.image}" alt="${card.title}" loading="lazy">
-            </div>
-            <div class="description">
-                <h3>${card.title}</h3>
-                <p>${card.description}</p>
-                <p class="postscription">${card.postscription}</p>
-            </div>
-        `;
-        
-        // Добавляем обработчик клика
-        cardDiv.addEventListener('click', function() {
-            openModal(card);
-        });
-        
-        return cardDiv;
-    }
-    
-    // Класс для управления каруселью
-    class CarouselManager {
-        constructor(sectionClass, jsonFile) {
-            this.sectionClass = sectionClass;
-            this.jsonFile = jsonFile;
+    // Универсальный класс для управления отображением карточек
+    class UniversalCardsManager {
+        constructor(config) {
+            this.sectionClass = config.sectionClass;
+            this.jsonFile = config.jsonFile;
+            this.titleClass = config.titleClass || null;
+            this.descriptionClass = config.descriptionClass || null;
             this.cardData = [];
             this.currentIndex = 0;
             this.visibleCards = 3;
-            this.carousel = null;
+            this.layoutMode = null; // 'grid' или 'carousel'
+            this.cardsContainer = null;
+            this.containerElement = null;
             this.prevBtn = null;
             this.nextBtn = null;
+            this.titleElement = null;
+            this.descriptionElement = null;
         }
 
-        
-        // Инициализация карусели
+        // Инициализация
         async init() {
             const section = document.querySelector(this.sectionClass);
             if (!section) {
@@ -131,50 +27,196 @@ document.addEventListener('DOMContentLoaded', async function() {
                 return;
             }
             
-            this.carousel = section.querySelector('.carousel');
-            this.prevBtn = section.querySelector('.prev');
-            this.nextBtn = section.querySelector('.next');
+            // Находим элементы
+            this.cardsContainer = section.querySelector('.cards, .carousel');
+            this.containerElement = this.cardsContainer?.parentElement;
+            this.prevBtn = section.querySelector('.prev, .carousel-prev');
+            this.nextBtn = section.querySelector('.next, .carousel-next');
             
-            if (!this.carousel) {
-                console.warn('Карусель не найдена в секции', this.sectionClass);
+            if (this.titleClass) {
+                this.titleElement = section.querySelector(this.titleClass);
+            }
+            
+            if (this.descriptionClass) {
+                this.descriptionElement = section.querySelector(this.descriptionClass);
+            }
+            
+            if (!this.cardsContainer) {
+                console.warn('Контейнер карточек не найден в секции', this.sectionClass);
                 return;
             }
             
             // Загружаем данные
-            this.cardData = await loadCards(this.jsonFile);
+            this.cardData = await this.loadCards();
             
             if (this.cardData.length > 0) {
-                this.initCarousel();
+                this.initLayout();
             } else {
-                this.carousel.innerHTML = '<p>Нет данных для отображения</p>';
+                this.cardsContainer.innerHTML = '<p>Нет данных для отображения</p>';
             }
         }
         
-        // Получение циклического индекса
-        getCircularIndex(index) {
-            if (this.cardData.length === 0) return 0;
-            return (index + this.cardData.length) % this.cardData.length;
+        // Загрузка данных из JSON
+        async loadCards() {
+            try {
+                const response = await fetch(this.jsonFile);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error(`Ошибка загрузки данных из ${this.jsonFile}:`, error);
+                return [];
+            }
         }
         
-        // Отображение карточек с циклическим эффектом
-        renderCards(startIndex, count) {
-            if (!this.carousel || this.cardData.length === 0) {
-                console.warn('Карусель не найдена или нет данных');
-                return;
+        // Определяем и инициализируем layout
+        initLayout() {
+            // Определяем режим отображения на основе количества карточек
+            if (this.cardData.length <= 4) {
+                this.layoutMode = 'grid';
+                this.showAsGrid();
+            } else {
+                this.layoutMode = 'carousel';
+                this.showAsCarousel();
             }
             
-            this.carousel.innerHTML = '';
-            
-            // Отображаем карточки в циклическом порядке
-            for (let i = 0; i < count; i++) {
-                const circularIndex = this.getCircularIndex(startIndex + i);
-                const cardElement = createCard(this.cardData[circularIndex], this.sectionClass);
-                this.carousel.appendChild(cardElement);
+            // Добавляем обработчики для свайпа (только для карусели)
+            if (this.layoutMode === 'carousel') {
+                this.setupSwipe();
             }
-
-            this.applyCardStyles();
         }
         
+        // Показать как сетку
+        showAsGrid() {
+            if (!this.cardsContainer || !this.containerElement) return;
+            
+            // Устанавливаем классы для сетки
+            this.containerElement.classList.add('grid-layout');
+            this.containerElement.classList.remove('carousel-layout');
+            this.cardsContainer.classList.add('cards-grid');
+            this.cardsContainer.classList.remove('cards-carousel');
+            
+            // Добавляем класс для количества карточек
+            const gridClass = this.getGridClass();
+            this.cardsContainer.classList.add(gridClass);
+            
+            // Очищаем контейнер
+            this.cardsContainer.innerHTML = '';
+            
+            // Создаем и добавляем карточки в сетку
+            this.cardData.forEach(card => {
+                const cardElement = this.createGridCard(card);
+                this.cardsContainer.appendChild(cardElement);
+            });
+            
+            // Скрываем кнопки навигации
+            if (this.prevBtn) this.prevBtn.style.display = 'none';
+            if (this.nextBtn) this.nextBtn.style.display = 'none';
+            
+            // Скрываем описание если оно есть (для ИИ раздела)
+            if (this.descriptionElement && this.cardData.length > 0) {
+                this.descriptionElement.style.display = 'block';
+            }
+        }
+        
+        // Определяем класс сетки в зависимости от количества карточек
+        getGridClass() {
+            const count = this.cardData.length;
+            if (count === 1) return 'grid-1';
+            if (count === 2) return 'grid-2';
+            if (count === 3) return 'grid-3';
+            return 'grid-4'; // для 4 карточек
+        }
+        
+        // Показать как карусель
+        showAsCarousel() {
+            if (!this.cardsContainer || !this.containerElement) return;
+            
+            // Устанавливаем классы для карусели
+            this.containerElement.classList.add('carousel-layout');
+            this.containerElement.classList.remove('grid-layout');
+            this.cardsContainer.classList.add('cards-carousel');
+            this.cardsContainer.classList.remove('cards-grid');
+            
+            // Удаляем классы сетки
+            this.cardsContainer.classList.remove('grid-1', 'grid-2', 'grid-3', 'grid-4');
+            
+            // Показываем кнопки навигации
+            if (this.prevBtn) this.prevBtn.style.display = 'flex';
+            if (this.nextBtn) this.nextBtn.style.display = 'flex';
+            
+            // Скрываем описание если оно есть (для ИИ раздела)
+            if (this.descriptionElement && this.cardData.length > 4) {
+                this.descriptionElement.style.display = 'none';
+            }
+            
+            this.updateVisibleCards();
+            this.renderCarouselCards();
+            
+            // Обработчики событий для кнопок навигации
+            if (this.prevBtn) {
+                this.prevBtn.addEventListener('click', () => {
+                    this.scrollCarousel(-1);
+                });
+            }
+            
+            if (this.nextBtn) {
+                this.nextBtn.addEventListener('click', () => {
+                    this.scrollCarousel(1);
+                });
+            }
+        }
+        
+        // Создать карточку для сетки
+        createGridCard(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'grid-card';
+            cardDiv.dataset.id = card.id;
+            
+            cardDiv.innerHTML = `
+                <div class="grid-card-image">
+                    <img src="${card.image}" alt="${card.title}" loading="lazy">
+                </div>
+                <div class="grid-card-content">
+                    <h3 class="grid-card-title">${card.title}</h3>
+                    <p class="grid-card-description">${card.description}</p>
+                    <p class="grid-card-postscription">${card.postscription}</p>
+                </div>
+            `;
+            
+            cardDiv.addEventListener('click', () => {
+                openModal(card);
+            });
+            
+            return cardDiv;
+        }
+        
+        // Создать карточку для карусели
+        createCarouselCard(card) {
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'carousel-card';
+            cardDiv.dataset.id = card.id;
+            
+            cardDiv.innerHTML = `
+                <div class="carousel-card-image">
+                    <img src="${card.image}" alt="${card.title}" loading="lazy">
+                </div>
+                <div class="carousel-card-content">
+                    <h3 class="carousel-card-title">${card.title}</h3>
+                    <p class="carousel-card-description">${card.description}</p>
+                    <p class="carousel-card-postscription">${card.postscription}</p>
+                </div>
+            `;
+            
+            cardDiv.addEventListener('click', () => {
+                openModal(card);
+            });
+            
+            return cardDiv;
+        }
+        
+        // Обновить количество видимых карточек
         updateVisibleCards() {
             if (window.innerWidth <= 768) {
                 this.visibleCards = 1;
@@ -183,111 +225,130 @@ document.addEventListener('DOMContentLoaded', async function() {
             } else {
                 this.visibleCards = 3;
             }
-            
-            this.renderCards(this.currentIndex, this.visibleCards);
         }
         
-        applyCardStyles() {
-            const cards = this.carousel.querySelectorAll('.card');
-            cards.forEach(card => {
-                if (window.innerWidth <= 768) {
-                    card.style.flex = '0 0 95%';
-                } else if (window.innerWidth <= 1024) {
-                    card.style.flex = '0 0 calc(50% - 15px)';
-                } else {
-                    card.style.flex = '0 0 calc(33.333% - 15px)';
-                }
-            });
+        // Рендер карточек карусели
+        renderCarouselCards() {
+            if (!this.cardsContainer || this.cardData.length === 0) return;
+            
+            this.cardsContainer.innerHTML = '';
+            
+            // Отображаем карточки
+            const cardsToShow = Math.min(this.visibleCards, this.cardData.length);
+            for (let i = 0; i < cardsToShow; i++) {
+                const index = (this.currentIndex + i) % this.cardData.length;
+                const cardElement = this.createCarouselCard(this.cardData[index]);
+                this.cardsContainer.appendChild(cardElement);
+            }
         }
         
-        // Инициализация карусели после загрузки данных
-        initCarousel() {
-            this.updateVisibleCards();
+        // Прокрутка карусели
+        scrollCarousel(direction) {
+            if (this.layoutMode !== 'carousel') return;
             
-            // Обработчики событий с циклической навигацией
-            if (this.prevBtn) {
-                this.prevBtn.addEventListener('click', () => {
-                    this.currentIndex = this.getCircularIndex(this.currentIndex - 1);
-                    this.renderCards(this.currentIndex, this.visibleCards);
-                });
+            this.currentIndex += direction;
+            
+            // Циклическая прокрутка
+            if (this.currentIndex < 0) {
+                this.currentIndex = this.cardData.length - this.visibleCards;
+            } else if (this.currentIndex >= this.cardData.length) {
+                this.currentIndex = 0;
             }
             
-            if (this.nextBtn) {
-                this.nextBtn.addEventListener('click', () => {
-                    this.currentIndex = this.getCircularIndex(this.currentIndex + 1);
-                    this.renderCards(this.currentIndex, this.visibleCards);
-                });
-            }
-            
-            // Добавляем обработчики для свайпа
-            this.setupSwipe();
+            this.renderCarouselCards();
         }
         
+        // Настройка свайпа
         setupSwipe() {
-            if (!this.carousel) return;
+            if (!this.cardsContainer || this.layoutMode !== 'carousel') return;
             
             let startX = 0;
             let endX = 0;
+            const swipeThreshold = 50;
             
-            this.carousel.addEventListener('touchstart', (e) => {
+            this.cardsContainer.addEventListener('touchstart', (e) => {
                 startX = e.touches[0].clientX;
             });
             
-            this.carousel.addEventListener('touchend', (e) => {
+            this.cardsContainer.addEventListener('touchend', (e) => {
                 endX = e.changedTouches[0].clientX;
-                this.handleSwipe(startX, endX);
+                const diff = startX - endX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        this.scrollCarousel(1);
+                    } else {
+                        this.scrollCarousel(-1);
+                    }
+                }
             });
         }
         
-        handleSwipe(startX, endX) {
-            const swipeThreshold = 50;
-            const diff = startX - endX;
-            
-            if (Math.abs(diff) > swipeThreshold) {
-                if (diff > 0) {
-                    // Свайп влево - следующая карточка
-                    this.currentIndex = this.getCircularIndex(this.currentIndex + 1);
-                } else {
-                    // Свайп вправо - предыдущая карточка
-                    this.currentIndex = this.getCircularIndex(this.currentIndex - 1);
-                }
-                this.renderCards(this.currentIndex, this.visibleCards);
+        // Обновить layout при ресайзе
+        updateLayout() {
+            if (this.layoutMode === 'grid') {
+                // При ресайзе обновляем адаптивность сетки
+                this.updateGridResponsive();
+            } else if (this.layoutMode === 'carousel') {
+                this.updateVisibleCards();
+                this.renderCarouselCards();
             }
         }
+        
+        // Обновить адаптивность сетки
+        updateGridResponsive() {
+            // Классы CSS сами адаптируются под размер экрана
+            // Здесь можно добавить дополнительную логику если нужно
+        }
     }
+
+    // Создаем менеджеры для всех разделов
+    const architectureManager = new UniversalCardsManager({
+        sectionClass: '.architecture',
+        jsonFile: 'architecture.json',
+        titleClass: '.archit-title'
+    });
     
-    // Создаем менеджеры для каждой карусели
-    const architectureCarousel = new CarouselManager('.architecture', 'architecture.json');
-    const designCarousel = new CarouselManager('.design', 'design.json'); 
+    const designManager = new UniversalCardsManager({
+        sectionClass: '.design',
+        jsonFile: 'design.json',
+        titleClass: '.design-title'
+    });
     
-    // Инициализируем обе карусели
+    const iiManager = new UniversalCardsManager({
+        sectionClass: '.II',
+        jsonFile: 'II.json',
+        titleClass: '.II-title',
+        descriptionClass: '.II-description'
+    });
+    
+    // Инициализируем все разделы
     await Promise.all([
-        architectureCarousel.init(),
-        designCarousel.init()
+        architectureManager.init(),
+        designManager.init(),
+        iiManager.init()
     ]);
     
-    // Обработчик ресайза для обеих каруселей
+    // Обработчик ресайза
     window.addEventListener('resize', () => {
-        architectureCarousel.updateVisibleCards();
-        designCarousel.updateVisibleCards();
+        architectureManager.updateLayout();
+        designManager.updateLayout();
+        iiManager.updateLayout();
     });
-
+    
     // Функция для открытия модального окна
     function openModal(cardData) {
         const modalOverlay = document.getElementById('modalOverlay');
         const modalContent = document.getElementById('modalContent');
         
-        // Получаем массив изображений (если есть) или используем одно изображение
         const images = cardData.images || [cardData.image];
         
-        // Создаем галерею изображений
         const galleryHTML = images.map((img, index) => `
             <div class="modal-gallery-item ${index === 0 ? 'active' : ''}">
                 <img src="${img}" alt="${cardData.title} - фото ${index + 1}" loading="lazy">
             </div>
         `).join('');
         
-        // Создаем навигацию для галереи (если больше 1 фото)
         const galleryNavHTML = images.length > 1 ? `
             <div class="modal-gallery-nav">
                 ${images.map((_, index) => `
@@ -298,7 +359,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             <button class="gallery-next">›</button>
         ` : '';
         
-        // Заполняем модальное окно данными
         modalContent.innerHTML = `
             <div class="modal-gallery-container">
                 <div class="modal-gallery">
@@ -312,24 +372,21 @@ document.addEventListener('DOMContentLoaded', async function() {
                     ${cardData.detailedDescription || cardData.description}
                     ${cardData.detailedDescription ? `<p><strong>Краткое описание:</strong> ${cardData.description}</p>` : ''}
                 </div>
-                
                 <div class="modal-details">
-                     <p>${cardData.postscription}</p>
+                    <p>${cardData.postscription}</p>
                 </div>
             </div>
         `;
         
-        // Показываем модальное окно
         modalOverlay.classList.add('active');
         document.body.style.overflow = 'hidden';
         
-        // Инициализируем галерею, если есть несколько изображений
         if (images.length > 1) {
             initGallery();
         }
     }
-
-    // Функция для управления галереей в модальном окне
+    
+    // Функция для управления галереей
     function initGallery() {
         const galleryItems = document.querySelectorAll('.modal-gallery-item');
         const dots = document.querySelectorAll('.gallery-dot');
@@ -338,22 +395,17 @@ document.addEventListener('DOMContentLoaded', async function() {
         let currentIndex = 0;
         
         function showImage(index) {
-            // Скрываем все изображения
             galleryItems.forEach(item => item.classList.remove('active'));
             dots.forEach(dot => dot.classList.remove('active'));
-            
-            // Показываем выбранное изображение
             galleryItems[index].classList.add('active');
             dots[index].classList.add('active');
             currentIndex = index;
         }
         
-        // Обработчики для точек
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => showImage(index));
         });
         
-        // Кнопка "предыдущее"
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
                 let newIndex = currentIndex - 1;
@@ -362,7 +414,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
         
-        // Кнопка "следующее"
         if (nextBtn) {
             nextBtn.addEventListener('click', () => {
                 let newIndex = currentIndex + 1;
@@ -371,7 +422,6 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
         
-        // Добавляем поддержку клавиатуры
         document.addEventListener('keydown', function(e) {
             if (!document.querySelector('.modal-overlay.active')) return;
             
@@ -386,25 +436,16 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         });
     }
-
-    // Функция для закрытия модального окна
-    function closeModal() {
-        const modalOverlay = document.getElementById('modalOverlay');
-        modalOverlay.classList.remove('active');
-        document.body.style.overflow = 'auto';
-    }
-
+    
     // Инициализация модальных окон
     function initModals() {
         const modalOverlay = document.getElementById('modalOverlay');
         const modalClose = document.getElementById('modalClose');
         
-        // Закрытие по клику на крестик
         if (modalClose) {
             modalClose.addEventListener('click', closeModal);
         }
         
-        // Закрытие по клику на оверлей
         if (modalOverlay) {
             modalOverlay.addEventListener('click', function(e) {
                 if (e.target === modalOverlay) {
@@ -413,12 +454,18 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
         }
         
-        // Закрытие по клавише Escape
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
                 closeModal();
             }
         });
     }
+    
+    function closeModal() {
+        const modalOverlay = document.getElementById('modalOverlay');
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+    
     initModals();
 });

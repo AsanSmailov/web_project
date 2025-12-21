@@ -1,0 +1,355 @@
+/* grid-carousel.css */
+/* Общие стили для сетки и карусели */
+
+/* Стили для сетки (когда карточек 4 или меньше) */
+.grid-layout .cards-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+/* Адаптивная сетка - подстраивается под количество карточек */
+.grid-layout .cards-grid.grid-1 {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.grid-layout .cards-grid.grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.grid-layout .cards-grid.grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.grid-layout .cards-grid.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.grid-card {
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.grid-card-image {
+    height: 40vh;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.grid-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.grid-card:hover .grid-card-image img {
+    transform: scale(1.05);
+}
+
+.grid-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.grid-card-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.grid-card-description {
+    flex: 1;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.grid-card-postscription {
+    font-size: 1.1rem;
+    color: #999;
+    font-weight: lighter;
+    margin: 0;
+}
+
+/* Адаптивность для сетки */
+@media (max-width: 1200px) {
+    .grid-layout .cards-grid.grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .grid-layout .cards-grid.grid-3,
+    .grid-layout .cards-grid.grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-layout .cards-grid {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* На мобильных всегда 1 колонка для сетки */
+    .grid-layout .cards-grid.grid-2,
+    .grid-layout .cards-grid.grid-3,
+    .grid-layout .cards-grid.grid-4 {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-card-image {
+        height: 180px;
+    }
+    
+    .grid-card-content {
+        padding: 15px;
+    }
+    
+    .grid-card-title {
+        font-size: 1.2rem;
+    }
+    
+    .grid-card-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .grid-card-postscription {
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .grid-layout .cards-grid {
+        gap: 10px;
+    }
+    
+    .grid-card-image {
+        height: 150px;
+    }
+    
+    .grid-card-title {
+        font-size: 1rem;
+    }
+    
+    .grid-card-description {
+        font-size: 0.8rem;
+    }
+    
+    .grid-card-postscription {
+        font-size: 0.7rem;
+    }
+}
+
+/* Стили для карусели (когда карточек больше 4) */
+.carousel-layout {
+    position: relative;
+    width: 100%;
+    margin: 0;
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 0 5%;
+}
+
+.carousel-layout .cards-carousel {
+    display: flex;
+    justify-content: center;
+    width: 92%;
+    transition: transform 0.5s ease-in-out;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.carousel-layout .cards-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.carousel-card {
+    flex: 0 0 calc(33.333% - 14px);
+    min-height: 80vh;
+    background: white;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.carousel-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-card-image {
+    height: 35vh;
+    overflow: hidden;
+}
+
+.carousel-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.carousel-card:hover .carousel-card-image img {
+    transform: scale(1.05);
+}
+
+.carousel-card-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 35vh);
+}
+
+.carousel-card-title {
+    font-size: 1.7rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.carousel-card-description {
+    flex: 1;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.carousel-card-postscription {
+    font-size: 1.1rem;
+    color: #999;
+    font-weight: lighter;
+    margin: 0;
+}
+
+/* Кнопки навигации для карусели */
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #ffffff00;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-nav-btn:hover {
+    animation: animation-arrow 1s forwards infinite;
+}
+
+.carousel-nav-btn img {
+    width: 40px;
+    height: 40px;
+}
+
+.carousel-prev {
+    left: 20px;
+    rotate: 90deg;
+}
+
+.carousel-next {
+    right: 20px;
+    rotate: -90deg;
+}
+
+/* Адаптивность для карусели */
+@media (max-width: 1024px) {
+    .carousel-card {
+        flex: 0 0 calc(50% - 10px);
+        min-height: 75vh;
+    }
+    
+    .carousel-layout .cards-carousel {
+        gap: 15px;
+    }
+    
+    .carousel-nav-btn {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .carousel-nav-btn img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .carousel-nav-btn:hover {
+    animation: none;
+}
+
+}
+
+@media (max-width: 768px) {
+    .carousel-card {
+        flex: 0 0 85%;
+        min-height: 70vh;
+        max-height: 80vh;
+    }
+    
+    .carousel-layout .cards-carousel {
+        gap: 15px;
+    }
+    
+    .cards-container {
+        padding: 0 10%;
+    }
+    
+    .carousel-card-content {
+        padding: 15px;
+    }
+    
+    .carousel-card-title {
+        font-size: 1.2rem;
+    }
+    
+    .carousel-card-description {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .carousel-card-postscription {
+        font-size: 0.8rem;
+    }
+    
+    .carousel-prev {
+        left: 5px;
+    }
+    
+    .carousel-next {
+        right: 5px;
+    }
+}

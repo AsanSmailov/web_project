@@ -1,240 +1,30 @@
+/* architecture.css - только специфичные стили */
 .architecture,
 .design{
-    margin: 0 6%;
+    margin: 0 6% 5%;
     max-width: 100%;
     padding-top: 4.5%;
 }
 
 .archit-title,
 .design-title{
-    margin: 0 0 5%;
+    margin-bottom: 5%;
     font-size: 1.7rem;
     font-weight: bold;
     color: #333;
     text-align: center;
 }
 
-.carousel-container {
-    position: relative;
-    width: 100%;
-    left: 50%;
-    transform: translateX(-50%); 
-    margin: 0;
-    padding-left: 5%;
-    
-}
-
-.carousel {
-    display: flex;
-    justify-content: start;
-    transition: transform 0.5s ease-in-out;
-    gap: 15px;
-    width: 95%;
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 20px;
-    
-}
-
-/* Обновлённое размытие с более плавным началом */
-/* .carousel::before,
-.carousel::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 80px;
-    z-index: 5;
-    pointer-events: none;
-}
-
-.carousel::before{
-    left: 0;
-    background: linear-gradient(
-        to right,
-        rgba(255,255,255, 1) 0%,
-        rgba(255,255,255,0.9) 15%,
-        rgba(255,255,255,0.7) 40%,
-        rgba(255,255,255,0.3) 70%,
-        rgba(255,255,255,0.1) 85%,
-        transparent 100%
-    );
-    
-}
-
-.carousel::after {
-    right: 0;
-    background: linear-gradient(
-        to left,
-        rgba(255,255,255, 1) 0%,
-        rgba(255,255,255,0.9) 15%,
-        rgba(255,255,255,0.7) 40%,
-        rgba(255,255,255,0.3) 70%,
-        rgba(255,255,255,0.1) 85%,
-        transparent 100%
-    );
-    z-index: 10;
-} */
-
-.card {
-    flex: 0 0 calc(33% - 15px);
-    min-height: 92vh;
-    background: white;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    z-index: 1;
-}
-.card:first-child{
-    margin-left: 10px;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-}
-
-.image-container {
-    height: 33vh;
-    overflow: hidden;
-}
-
-.image-container img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-}
-
-.card:hover .image-container img {
-    transform: scale(1.05);
-}
-
-.description h3 {
-    margin-bottom: 10px;
-    font-size: 1.7rem;
-    font-weight: 500;
-    color: #333;
-    font-weight: bold;
-}
-
-.description {
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - 33vh); /* учитываем высоту изображения */
-    position: relative;
-}
-
-.description p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-    line-height: 1.2;
-    font-weight: normal;
-    margin-bottom: 10px;
-}
-
-.description p:not(:last-child) {
-    flex: 1;
-}
-
-.description p:last-child {
-    font-weight: lighter;
-}
-
-
-.nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: #ffffff00;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 10;
-}
-
-.nav-btn:hover {
-    animation: animation-arrow 1s forwards infinite;
-}
-
-.prev {
-    left: 0;
-    transform:  rotate(90deg);
-}
-
-.next {
-    right: -.5%;
-    transform:  rotate(-90deg);
-}
-
 @media (max-width: 768px) {
-    .description p {
-        font-size: .6rem;
-        margin: 0;
-    }
-
-    .description{
-        padding: 5px;
-    }
-
-    .description h3 {
-        font-size: 1rem;
-    }
-    .card:hover {
-        transform: none;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    .architecture,
+    .design{
+        padding-top: 15%;
+        margin: 0 6% 5%;
     }
 
     .archit-title,
     .design-title {
-        text-align: center;
-        margin: 0 0 10%;
         font-size: 1rem;
+        margin-bottom: 20px;
     }
-
-    .architecture,
-    .design{
-        padding-top: 15%;
-    }
-
-    /* .carousel::before,
-    .carousel::after {
-        width: 60px; 
-    } */
-
-    .carousel{
-        gap: 3%;
-        width: 90%;
-        justify-content: center;
-    }
-
-    .carousel-container {
-        width: 95%;
-    }
-
-    .card{
-        flex: 0 0 100%;
-        min-height: 70vh;
-        max-height: 80vh;
-    }
-
-    .nav-btn{
-        height: 25px;
-        width: 25px;
-    }
-
-    .prev {
-        left: 0;
-    }
-
-    .next {
-        right: 0;
-    }
-
 }
