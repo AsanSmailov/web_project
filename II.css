@@ -23,9 +23,8 @@
 
 @media (max-width: 768px) {
     .II{
+        padding-top: 15%;
         margin: 0 6% 5%;
-        max-width: 100%;
-        padding: 15% 30px 0;
     }
     
     .II-title {
