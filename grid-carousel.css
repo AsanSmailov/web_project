@@ -137,6 +137,13 @@
     .grid-card-postscription {
         font-size: 0.8rem;
     }
+    .grid-card:active {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+    .grid-card:hover {
+        animation: none;
+    }
 }
 
 @media (max-width: 480px) {
