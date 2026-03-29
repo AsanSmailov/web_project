@@ -1,14 +1,16 @@
 const arrow = document.querySelector('.arrow-back');
 const topLine = document.querySelector('.top-line');
+const lang = document.querySelector('.lang');
 const homeBlock = document.querySelector('#home');
 
 function checkVisibility() {
     const homeRect = homeBlock.getBoundingClientRect();
     
-    const isHomeOutOfView = homeRect.bottom <=  window.innerHeight * 0.35;
+    const isHomeOutOfView = homeRect.bottom <=  window.innerHeight * 0.4;
     
     arrow.classList.toggle('active', isHomeOutOfView);
     topLine.classList.toggle('active', isHomeOutOfView);
+    lang.classList.toggle('active', isHomeOutOfView);
 }
 
 window.addEventListener('scroll', checkVisibility);
@@ -79,11 +81,11 @@ document.getElementById('menu-policy-pc').addEventListener('click', function(e) 
 });
 
 document.getElementById('architecture-pc').addEventListener('click', function(e) {
-    goto(e, 'main');
+    goto(e, 'architecture-section');
 });
 
 document.getElementById('architecture').addEventListener('click', function(e) {
-    goto(e, 'main');
+    goto(e, 'architecture-section');
 });
 
 document.getElementById('design-pc').addEventListener('click', function(e) {

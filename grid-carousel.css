@@ -70,7 +70,7 @@
 }
 
 .grid-card-title {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
@@ -79,13 +79,13 @@
 .grid-card-description {
     flex: 1;
     color: #7f8c8d;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 15px;
 }
 
 .grid-card-postscription {
-    font-size: 1.1rem;
+    font-size: .9rem;
     color: #999;
     font-weight: lighter;
     margin: 0;
